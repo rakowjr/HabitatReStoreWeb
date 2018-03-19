@@ -1,0 +1,559 @@
+﻿/* =============================================================================
+   HTML5 display definitions
+   ========================================================================== */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+	display: block;
+}
+
+/*#region TYPE ELEMENTS*/
+* {
+    font-family: Arial;
+}
+
+h1 { font-size: 2.25em;  /* 16x2.25=36 */ }
+
+h2 { font-size: 1.5em;   /* 16x1.5=24 */ }
+
+h3 { font-size: 1.125em; /* 16x1.125=18 */ }
+
+h4 { font-size: 0.875em; /* 16x0.875=14 */ }
+
+p  { font-size: 0.75em;  /* 16x0.75=12 */ }
+
+html {
+	font-size: 100%;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+html, button, input, select, textarea {
+	font-family: sans-serif;
+	color: #2f568c;
+}
+body {
+	margin: 0;
+	font-size: 13px;
+	background-color: #fffbde;
+	font-family: "gotham_bookregular";
+	color: #504641;
+	background-image: url(../Images/site_bg2.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+table {
+    border-collapse: collapse;
+    border-color: #FFFBDE;
+}
+/*#endregion*/
+
+/* #region LINKS & LISTS*/
+
+/* Improve readability when focused and hovered in all browsers: h5bp.com/h */
+a:hover, a:active {
+	outline: 0;
+}
+a img {
+    border: none;
+	outline: none;
+}
+ul, ol {
+	margin: 1em 0;
+	padding: 0 0 0 40px;
+}
+dd {
+	margin: 0 0 0 40px;
+}
+nav ul, nav ol {
+	list-style: none;
+	list-style-image: none;
+	margin: 0;
+	padding: 0;
+}
+/*#endregion*/
+
+/*#region HEADER*/
+#header_wrapper {
+	width: 100%;
+	height: 467px;
+}
+#top_bars_wrapper {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 24;
+}
+#top_bar1 { 
+    width: 100%;       
+	height: 64px;
+    border-bottom: 3px solid #FFF;
+}
+#top_bar2 {
+    width: 100%;
+    height: 40px;
+    background-color: #73A4CD;
+    border-bottom: 3px solid #FFF;
+}
+#logo_container {
+    width: 933px;
+    margin: 0 auto;
+    height: 23px;
+}
+    #logo_container p {
+        font-weight: 800;
+        text-align: right;
+        padding-right: 55px;
+        margin-top: 15px;
+    }
+#nav_container{
+    width: 933px;
+    margin: 0 auto;
+    height: 23px;
+}
+.top_logo {
+	width: 500px;
+	height: 60px;
+    margin: 3px 250px 3px 0;
+    float: left;
+}
+nav {
+    width: 950px;
+    height: 24px;
+    margin: 0 auto;
+    padding-top: 7px;
+    padding-left: 17px;
+    z-index: 27;
+}
+    nav a {
+        color: #FFF;
+    }
+.MainMenu {
+    background-color: #73A4CD;
+}
+    .MainMenu ul li {
+        text-align: center;
+        width: 180px;
+    }
+ul.level1
+{
+  /* Defines the appearance of main menu items. */
+  font-size: 14px;
+  font-weight: bold;
+  height: 19px;
+  line-height: 19px;
+
+}
+  ul.level1 .selected
+  {
+    /* Defines the appearance of active menu items. */
+    background-color: #97CDFF;
+    cursor: default; 
+  }
+a.level1
+{
+  /* Adds some white space to the left of the main menu item text.
+!important is used to overrule the in-line CSS that the menu generates */
+  padding-left: 5px !important;
+}
+a.level2
+{
+  /* Defines the appearance of the sub menu items. */
+  text-align: left;
+  background-color: #555555;
+  padding-left: 8px;
+}
+  a.level1:hover, a.level2:hover
+  {
+    /* Defines the hover style for the main and sub items. */
+    background-color: #509EE7;
+  }
+  #header_pic_wrapper {
+	width: 100%;
+	min-width: 960px;
+	height: 450px;
+	position: absolute;
+	z-index: 23;
+	left: 0;
+	top: 0;
+}
+#header_pic_holder {
+	width: 960px;
+	height: 447px;
+	position: relative;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.header_pic_abs {
+	width: 919px;
+	height: 335px;
+	position: relative;
+	left: 16px;
+	top: 109px;
+	border: 3px solid #fff;
+	background-color: #d3c2a4;
+	z-index: 22;
+}
+/*#endregion*/
+
+/*#region MAIN BOBY*/
+#wrapper {
+	width: 960px;
+	margin: 0 auto;
+}
+#content_holder {
+	padding: 0px;
+	min-height: 500px;
+	margin-top: 20px;
+	display: block;
+}
+.col_1 {
+	float: left;
+	width: 700px;
+	height: auto;
+	background-color: #fffbde;
+	padding-bottom: 20px;
+}
+.col_2 {
+	float: right;
+	width: 260px;
+	padding-bottom: 20px;
+	height: auto;
+	background-image: url(../Images/sidebar_bg.png);
+	background-repeat: repeat-y;
+}
+.clear_float {
+	clear: both;
+}
+#HomePage {
+    width: 680px;
+    padding: 5px 20px 20px 20px;
+}
+    #HomePage h1 {
+        text-align: center;
+    }
+    #HomePage p {
+        padding-right: 1.5em;
+        font-size: 1.125em;
+        line-height: 1.5em;
+    }
+.PageImage2 {
+    float: right;
+    padding: .2em 1.5em .2em 1.5em;
+}
+.PageImage1 {
+    float: left;
+    padding: .2em 1.5em .2em 0;
+}
+.gridStyle {
+    margin-left: 120px;
+}
+.gridStyle2 {
+    margin-left: 50px;
+    border: none;
+}
+.dropDownStyle {
+    margin-left: 220px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.dropDownStyle2 {
+    margin-left: 280px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.dropDownStyle3 {
+    margin-left: 200px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.imageStyle {
+    padding: 30px;
+}
+.gridStyle2 {
+    margin-left: -15px;
+}
+#formContent h1, #formContent h2, #formContent p{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+.formLabel {
+    text-align: right;
+    margin-right: 20px;
+}
+.formBox {
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+.formSubmit {
+    margin-top: 35px;
+    margin-left: 320px;
+}
+.valCtrl {
+    padding-left: 10px;
+}
+.dbError {
+    width: 300px;
+    height: 300px;
+    margin-top: 50px;
+    margin-left: 200px;
+}
+.resultsBox {
+        margin-left: 195px;
+    }
+#UpdateContainer {
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid #ababab;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -khtml-border-radius: 7px;
+    border-radius: 7px;
+    -webkit-box-shadow: 0 0 10px 5px #ababab;
+    -moz-box-shadow: 0 0 10px 5px #ababab;
+    box-shadow: 0 0 10px 5px #ababab;
+}
+    #UpdateContainer h2 {
+        text-align: center;
+        margin-top: 20px;
+    }
+    #UpdateContainer p {
+        text-align: center;
+        margin-top: 20px;
+        font-size: medium;
+    }
+#ContactContainer {
+    width: 690px;
+    height: 550px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid #ababab;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -khtml-border-radius: 7px;
+    border-radius: 7px;
+    -webkit-box-shadow: 0 0 10px 5px #ababab;
+    -moz-box-shadow: 0 0 10px 5px #ababab;
+    box-shadow: 0 0 10px 5px #ababab;
+} 
+.fieldHeader {
+    padding-right: 15px;
+    font-size: medium;
+}
+.rowElement {
+    padding-left: 15px;
+}
+.artistDetails {
+    margin-left: 20px;
+}
+/*#endregion*/
+
+/*#region FOOTER*/
+#footer_bar1_wrapper {
+	width: 100%;
+	height: 100px;
+	text-align: center;
+	margin-top: -38px;
+	font-size: 12px;
+}
+#footer_bar1 {
+	width: 960px;
+	margin: 0 auto;
+	text-align: center;
+	font-family: 'gotham_mediumregular';
+	color: #fff;
+	padding-top: 62px;
+}
+#footer_bar1 a {
+	color: #fff;
+}
+
+.footer_spacer {
+    width: 42px;
+    height: 24px;
+    margin-left: 8px;
+    margin-right: 8px;
+    background-image: url('../Images/GENIE LAMP .gif');
+    background-repeat: no-repeat;
+    background-position: center top;
+    display: inline-block;
+}
+.footer_lg_text {
+	font-size: 18px;
+	font-family: 'league_gothicregular';
+	letter-spacing: 1px;
+}
+/*#endregion*/
+
+/*#region IMAGES*/
+/*Ads*/
+.artsCouncil {
+    margin: 35px auto;
+    width: 213px;
+    height: 156px;
+    border: none;
+    outline: none;
+    display: block;
+}
+.communityArtsCafe {
+    margin: 35px auto;
+    width: 240px;
+    height: 71px;
+    border: none;
+    outline: none;
+    display: block;
+}
+.hanesBrandTheatre {
+    margin: 35px auto;
+    width: 200px;
+    height: 53px;
+    border: none;
+    outline: none;
+    display: block;
+}
+.miltonRhodes {
+    margin: 35px auto;
+    width: 240px;
+    height: 110px;
+    border: none;
+    outline: none;
+    display: block;
+}
+.secca {
+    margin: 35px auto;
+    width: 240px;
+    height: 75px;
+    border: none;
+    outline: none;
+    display: block;
+}
+/*Acrylic*/
+.EOT {
+    width: 250px;
+    height: 251px;
+    border: none;
+    outline: none;
+}
+.FL {
+    width: 250px;
+    height: 188px;
+    border: none;
+    outline: none;
+}
+.FT {
+    width: 250px;
+    height: 183px;
+    border: none;
+    outline: none;
+}
+.MS {
+    width: 250px;
+    height: 248px;
+    border: none;
+    outline: none;
+}
+.WL {
+    width: 250px;
+    height: 285px; 
+    border: none;
+    outline: none;
+}
+
+/*Oil*/
+.AM {
+    width: 250px;
+    height: 156px;
+    border: none;
+    outline: none;
+}
+.BAO {
+    width: 250px;
+    height: 205px;
+    border: none;
+    outline: none;
+}
+.BG {
+    width: 250px;
+    height: 310px;
+    border: none;
+    outline: none;
+}
+.BD {
+    width: 250px;
+    height: 194px;
+    border: none;
+    outline: none;
+}
+.RH {
+    width: 250px;
+    height: 250px;
+    border: none;
+    outline: none;
+}
+
+/*Water*/
+.C {
+    width: 250px;
+    height: 235px;
+    border: none;
+    outline: none;
+}
+.COG {
+    width: 250px;
+    height: 187px;
+    border: none;
+    outline: none;
+}
+.LB {
+    width: 250px;
+    height: 184px;
+    border: none;
+    outline: none;
+}
+.TT {
+    width: 250px;
+    height: 187px;
+    border: none;
+    outline: none;
+}
+.WR {
+    width: 250px;
+    height: 250px;
+    border: none;
+    outline: none;
+}
+
+/*Other*/
+.B {
+    width: 250px;
+    height: 155px;
+    border: none;
+    outline: none;
+}
+.JM {
+    width: 250px;
+    height: 200px;
+    border: none;
+    outline: none;
+}
+.P {
+    width: 250px;
+    height: 169px;
+    border: none;
+    outline: none;
+}
+.S {
+    width: 250px;
+    height: 333px;
+    border: none;
+    outline: none;
+}
+.T {
+    width: 250px;
+    height: 318px;
+    border: none;
+    outline: none;
+}
+/*#endregion*/
