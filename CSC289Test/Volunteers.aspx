@@ -1,15 +1,20 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Volunteers.aspx.cs" Inherits="Volunteers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <style type="text/css">
-        
-        
+    <style type="text/css">       
+        .auto-style1 {
+            margin-left: 325px;
+        }       
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">  
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSourceMonth" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [Month]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSourceDay" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [Day]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSourceYear" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [Year]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSourceState" runat="server" ConnectionString="Data Source=tcp:50.63.178.68,49172;User ID=rakowj2891;Password=1Password!" ProviderName="System.Data.SqlClient" SelectCommand="SELECT * FROM [State]"></asp:SqlDataSource>
+
     <div id="volunteerContent">
-        <h2>Volunteer Registration</h2>
+        <h2 style="padding: 40px 0;">Volunteer Registration</h2>
         <table class="volunteerTable">
             <tr>
                 <td class="vtCol1"></td>
@@ -38,11 +43,11 @@
 
                 </td>
             </tr>
-            <tr errormessage="Incorrect Date Format">
+            <tr>
                 <td class="vtCol1"></td>
                 <td class="vtCol2">Gender (M/F): </td>
                 <td class="vtCol3">
-                    <asp:RadioButtonList ID="rBtnGender" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" ValidationGroup="Volunteers" Height="24px" Width="170px" CssClass="volRadList">
+                    <asp:RadioButtonList ID="rBtnGender" runat="server" AutoPostBack="False" RepeatDirection="Horizontal" ValidationGroup="Volunteers" Height="24px" Width="170px" CssClass="volRadList">
                         <asp:ListItem Value="M">Male</asp:ListItem>
                         <asp:ListItem Value="F">Female</asp:ListItem>
                     </asp:RadioButtonList>
@@ -52,15 +57,33 @@
 
                 </td>                
             </tr>
+            <tr style="height: 12px">
+                <td></td>
+                <td></td>
+                <td>
+                    <span style="padding: 0 12px;">Month</span><span style="padding: 0 20px;">Day</span><span style="padding: 0 25px;">Year</span>
+                </td>
+                <td></td>
+            </tr>
             <tr>
                 <td class="vtCol1"></td>
-                <td class="vtCol2">Date of Birth (MM/DD/YYYY): </td>
+                <td class="vtCol2">Date of Birth: </td>
                 <td class="vtCol3">
-                    <asp:TextBox ID="tbDOB" runat="server" CssClass="volTB"></asp:TextBox>
+                    <span style="margin: 0 12px;">
+                        <asp:DropDownList ID="ddlMonth" runat="server" DataSourceID="SqlDataSourceMonth" DataTextField="Month" DataValueField="Month">
+                        </asp:DropDownList>
+                    </span>
+                    <span style="margin: 0 12px;">
+                        <asp:DropDownList ID="ddlDay" runat="server" DataSourceID="SqlDataSourceDay" DataTextField="Day" DataValueField="Day"></asp:DropDownList>
+                    </span>
+                    <span style="margin: 0 12px;">
+                        <asp:DropDownList ID="ddlYear" runat="server" DataSourceID="SqlDataSourceYear" DataTextField="Year" DataValueField="Year"></asp:DropDownList>
+                    </span>
                 </td>
                 <td class="vtCol4">
-                    <asp:RequiredFieldValidator ID="valDOB" runat="server" ErrorMessage="Date of Birth missing" ControlToValidate="tbDOB" ValidationGroup="Volunteers" Text="*" ForeColor="Red" CssClass="volValidate"></asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="tbDOB" CssClass="volExpr" ErrorMessage="Incorrect Date Format" ForeColor="Red" ValidationExpression="^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\d\d$" ValidationGroup="Volunteers">*</asp:RegularExpressionValidator>
+                    <asp:requiredfieldvalidator runat="server" errormessage="Birth month missing" ID="valMonth" ControlToValidate="ddlMonth" InitialValue=" " ValidationGroup="Volunteers" ForeColor="Red" CssClass="volValidate">*</asp:requiredfieldvalidator>
+                    <asp:RequiredFieldValidator ID="valDay" runat="server" ControlToValidate="ddlDay" ErrorMessage="Birth day missing" InitialValue=" " ValidationGroup="Volunteers" ForeColor="Red" CssClass="volValidate">*</asp:RequiredFieldValidator>
+                    <asp:requiredfieldvalidator runat="server" errormessage="Birth year missing" ID="valYear" ControlToValidate="ddlYear" InitialValue=" " ValidationGroup="Volunteers" ForeColor="Red" CssClass="volValidate">*</asp:requiredfieldvalidator>
                 </td>
             </tr>
             <tr>
@@ -101,10 +124,12 @@
                 <td class="vtCol1"></td>
                 <td class="vtCol2">State: </td>
                 <td class="vtCol3">
-                    <asp:TextBox ID="tbState" runat="server" CssClass="volTB"></asp:TextBox>
+                    <span style="margin: 0 12px;">
+                       <asp:dropdownlist runat="server" ID="ddlState" DataSourceID="SqlDataSourceState" DataTextField="State" DataValueField="State"></asp:dropdownlist>
+                    </span>
                 </td>
                 <td class="vtCol4">
-                    <asp:RequiredFieldValidator ID="valState" runat="server" ErrorMessage="State missing" ValidationGroup="Volunteers" ControlToValidate="tbState" Text="*" ForeColor="Red" CssClass="volValidate"></asp:RequiredFieldValidator>
+                    <asp:requiredfieldvalidator runat="server" errormessage="State missing" ID="valState" ControlToValidate="ddlState" ForeColor="Red" InitialValue=" " ValidationGroup="Volunteers" CssClass="volValidate">*</asp:requiredfieldvalidator>
                 </td>
             </tr>
             <tr>
@@ -128,6 +153,9 @@
                     <asp:RequiredFieldValidator ID="valPhone" runat="server" ErrorMessage="Phone Number missing" ValidationGroup="Volunteers" ControlToValidate="tbPhone" Text="*" ForeColor="Red" CssClass="volValidate"></asp:RequiredFieldValidator>
                     
 
+                    <asp:CompareValidator ID="valPhoneData" runat="server" ControlToValidate="tbPhone" CssClass="volValidate" ErrorMessage="Use only numbers for phone number" ForeColor="Red" Operator="DataTypeCheck" Type="Integer" ValidationGroup="Volunteers">*</asp:CompareValidator>
+                    
+
                 </td>
             </tr>
             <tr>
@@ -143,33 +171,13 @@
             </tr>            
         </table>
         <div>
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" ValidationGroup="Volunteers" OnClick="btnSubmit_Click" />
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" ValidationGroup="Volunteers" OnClick="btnSubmit_Click" CssClass="auto-style1" />
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" ValidationGroup="Volunteers" />
         </div>
         <div>
             <asp:label runat="server" ID="lblDbError"></asp:label>
-            <asp:sqldatasource runat="server" ID="VolunteerDS" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT [Last_Name], [First_Name], [Address], [City], [State], [ZipCode], [Middle_Name], [Gender], [DOB], [SSN], [Address2], [Phone], [Email] FROM [Volunteer]"></asp:sqldatasource>
         </div>
-        <div>
-            
-            <asp:label runat="server" text="" ID="Label1"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label2"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label3"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label4"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label5"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label6"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label7"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label8"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label9"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label10"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label11"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label12"></asp:label><br />
-            <asp:label runat="server" text="" ID="Label13"></asp:label><br />
-            <br />
-            <br />
-            <br />
-            <br />
-        </div>
-
+        <div style="height: 40px;"></div>
     </div>
 
 </asp:Content>

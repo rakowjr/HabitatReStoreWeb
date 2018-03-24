@@ -1,0 +1,50 @@
+<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="tbDOB" CssClass="volExpr" ErrorMessage="Incorrect Date Format" ForeColor="Red" ValidationExpression="^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\d\d$" ValidationGroup="Volunteers">*</asp:RegularExpressionValidator>
+
+
+<!--<asp:RequiredFieldValidator ID="valDOB" runat="server" ErrorMessage="Date of Birth missing" ControlToValidate="tbDOB" ValidationGroup="Volunteers" Text="*" ForeColor="Red" CssClass="volValidate"></asp:RequiredFieldValidator>-->
+
+
+<asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
+
+
+<asp:sqldatasource runat="server" ID="VolunteerDS" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT [Last_Name], [First_Name], [Address], [City], [State], [ZipCode], [Middle_Name], [Gender], [DOB], [SSN], [Address2], [Phone], [Email] FROM [Volunteer]"></asp:sqldatasource>
+
+<asp:RequiredFieldValidator ID="valState" runat="server" ErrorMessage="State missing" ValidationGroup="Volunteers" ControlToValidate="tbState" Text="*" ForeColor="Red" CssClass="volValidate"></asp:RequiredFieldValidator>
+
+<asp:label runat="server" text="" ID="Label1"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label2"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label3"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label4"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label5"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label6"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label7"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label8"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label9"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label10"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label11"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label12"></asp:label><br />
+            <asp:label runat="server" text="" ID="Label13"></asp:label><br />
+            <br />
+            <br />
+            <br />
+            <br />
+			
+			Label1.Text = tbLName.Text;
+        Label2.Text = tbFName.Text;
+        Label3.Text = tbMName.Text;
+        Label4.Text = rBtnGender.SelectedValue;
+        Label5.Text = ddlYear.SelectedValue + "-" + ddlMonth.SelectedValue + "-" + ddlDay.SelectedValue;
+        Label6.Text = tbSSN.Text;
+        Label7.Text = tbAddress.Text;
+        Label8.Text = tbAddress2.Text;
+        Label9.Text = tbCity.Text;
+        Label10.Text = ddlState.SelectedValue;
+        Label11.Text = tbZip.Text;
+        Label12.Text = tbPhone.Text;
+        Label13.Text = tbEmail.Text;
+		
+		        DateTime dt = DateTime.ParseExact(date, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+
+
+
+
