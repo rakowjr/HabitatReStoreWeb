@@ -172,7 +172,7 @@
         </table>
         <div>
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" ValidationGroup="Volunteers" OnClick="btnSubmit_Click" CssClass="auto-style1" />
-            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" ValidationGroup="Volunteers" />
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Validation Check" ValidationGroup="Volunteers" />
         </div>
         <div>
             <asp:label runat="server" ID="lblDbError"></asp:label>

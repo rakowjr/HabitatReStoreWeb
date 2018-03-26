@@ -186,50 +186,50 @@ nav ul, nav ol {
     padding: 6px;
     box-shadow: 0 2px 6px rgba(0,0,0,33);
 }
-#volunteerContent{
+#volunteerContent, #donorContent{
     background: #FFF;
     width: 100%;
 }
-#volunteerContent h2{
+#volunteerContent h2, #donorContent h2{
     text-align: center;
 }
-.volunteerTable{
+.volunteerTable, .donorTable{
     width: 575px;
     padding-top: 25px;
     margin: 0 auto;
 }
-.volunteerTable tr{
+.volunteerTable tr, .donorTable tr{
     height: 45px;
 }
-.vtCol1, .vtCol4{
+.vtCol1, .vtCol4, .dnCol1, .dnCol4{
     width: 25px;
     text-align: center;
 }
-.vtCol2{
+.vtCol2, .dnCol2{
     width: 250px;
     font-size: small;
     text-align: right;
     padding-right: 15px;
 }
-.vtCol3{
+.vtCol3, .dnCol3{
     width: 260px;
 }
-.volTB{
+.volTB, dnTB{
     width: 230px;
     height: 24px;
     font-size: small;
 }
-.volValidate{
+.volValidate, .dnValidate{
     font-size: large;
     
     padding-top: 4px;
 }
-.volExpr{
+.volExpr, dnExpr{
     font-size: large;
     
     padding-top: 4px;
 }
-.volRadList{
+.volRadList, .volRadList{
     text-align: left;
     margin-left: 0px;
     margin-top: 4px;

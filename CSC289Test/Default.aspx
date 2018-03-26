@@ -28,9 +28,20 @@
             be good stewards of our environment by diverting usable items from landfills.            
         </p>
         <p>&nbsp;</p>
-        <p>
-            <asp:Button ID="btnDonate" runat="server" OnClick="btnDonate_Click" Text="Make Donation" />
-&nbsp;Click here&nbsp;to make on online request for a donation pickup.</p>
+        <p>&nbsp;</p>
+        <p style="text-align: center;">
+            <span style="margin-right: 30px;">
+                <asp:Button ID="btnNewDonor" runat="server" OnClick="btnDonate_Click" Text="I Am A New Donor" />
+            </span>
+            <span style="margin-left: 30px;">
+                <asp:Button ID="btnReturnDonor" runat="server" Text="I Am A Returning Donor" OnClick="btnReturnDonor_Click" Height="26px" Width="207px" />
+            </span>            
+            <br />
+            <br />
+            <span>
+                &nbsp;Click the appropriate button to make on online request for a donation pickup. 
+            </span>           
+        </p>
         <h6>Volunteer</h6>
         <img alt="" src="images/volunteers-300x228.jpg" class="volunteerImg"/>
         <p>
