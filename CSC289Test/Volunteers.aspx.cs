@@ -19,7 +19,7 @@ public partial class Volunteers : System.Web.UI.Page
     protected void btnSubmit_Click(object sender, EventArgs e)
     {       
 
-        int smID = 1; //Status Map ID variable hard coded
+        int volunteerStatusID = 1; //Status Map ID variable hard coded
 
         String date = ddlYear.SelectedValue + "-" + ddlMonth.SelectedValue + "-" + ddlDay.SelectedValue;
         DateTime dt = DateTime.Parse(date);
@@ -34,7 +34,7 @@ public partial class Volunteers : System.Web.UI.Page
         cmd.CommandType = CommandType.Text;
 
         //provide values from page
-        cmd.Parameters.AddWithValue("@Status_Map_ID", smID);
+        cmd.Parameters.AddWithValue("@Status_Map_ID", volunteerStatusID);
         cmd.Parameters.AddWithValue("@Last_Name",tbLName.Text);
         cmd.Parameters.AddWithValue("@First_Name", tbFName.Text);
         cmd.Parameters.AddWithValue("@Middle_Name", tbMName.Text);

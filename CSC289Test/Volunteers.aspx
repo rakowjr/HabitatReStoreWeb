@@ -11,7 +11,7 @@
     <asp:SqlDataSource ID="SqlDataSourceMonth" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [Month]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSourceDay" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [Day]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSourceYear" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [Year]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSourceState" runat="server" ConnectionString="Data Source=tcp:50.63.178.68,49172;User ID=rakowj2891;Password=1Password!" ProviderName="System.Data.SqlClient" SelectCommand="SELECT * FROM [State]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSourceState" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [State]"></asp:SqlDataSource>
 
     <div id="volunteerContent">
         <h2 style="padding: 40px 0;">Volunteer Registration</h2>

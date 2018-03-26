@@ -13,29 +13,37 @@ public partial class Volunteers : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            MultiView1.ActiveViewIndex = 0;
+        }
+    }
 
+    protected void btnToView2_Click(object sender, EventArgs e)
+    {
+        MultiView1.ActiveViewIndex = 1;
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
-    {       
-
-        int smID = 1; //Status Map ID variable hard coded
+    {
+        //Insert information into Donor table
+        int donorStatusID = 2; //Status Map ID variable hard coded
 
         String date = ddlYear.SelectedValue + "-" + ddlMonth.SelectedValue + "-" + ddlDay.SelectedValue;
         DateTime dt = DateTime.Parse(date);
-        
+
         //Create new SqlConnection using the connection string from web.config
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
         //Create new Sql Statement to insert data into the Volunteer table
-        SqlCommand cmd = new SqlCommand("Insert INTO Volunteer (Status_Map_ID,Last_Name, First_Name, Middle_Name, Gender, DOB, SSN, Address, Address2, City, State, Zip_Code, Phone, Email) VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender, @DOB, @SSN, @Address, @Address2, @City, @State, @Zip_Code, @Phone, @Email)", mConn);
+        SqlCommand cmd = new SqlCommand("Insert INTO Donor (Status_Map_ID, Last_Name, First_Name, Middle_Name, Gender, DOB, SSN, Address, Address2, City, State, Zip_Code, Phone, Email) VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender, @DOB, @SSN, @Address, @Address2, @City, @State, @Zip_Code, @Phone, @Email)", mConn);
 
         //Define command type
         cmd.CommandType = CommandType.Text;
 
         //provide values from page
-        cmd.Parameters.AddWithValue("@Status_Map_ID", smID);
-        cmd.Parameters.AddWithValue("@Last_Name",tbLName.Text);
+        cmd.Parameters.AddWithValue("@Status_Map_ID", donorStatusID);
+        cmd.Parameters.AddWithValue("@Last_Name", tbLName.Text);
         cmd.Parameters.AddWithValue("@First_Name", tbFName.Text);
         cmd.Parameters.AddWithValue("@Middle_Name", tbMName.Text);
         cmd.Parameters.AddWithValue("@Gender", rBtnGender.SelectedValue);
@@ -60,14 +68,20 @@ public partial class Volunteers : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+            lblDonorDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
         }
 
-    }
+        //insert information into Donation table
 
+
+    }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-
+        //does nothing but check validation and reg expressions for errors in validation group Donors
     }
+
+
+
+    
 }

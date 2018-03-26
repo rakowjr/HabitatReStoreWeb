@@ -186,13 +186,13 @@ nav ul, nav ol {
     padding: 6px;
     box-shadow: 0 2px 6px rgba(0,0,0,33);
 }
-#volunteerContent, #donorContent{
+#volunteerContent, #donorContent, #donationContent{
     background: #FFF;
     width: 100%;
 }
-#volunteerContent h2, #donorContent h2{
-    text-align: center;
-}
+    #volunteerContent h2, #donorContent h2, #donationContent h2{
+        text-align: center;
+    }
 .volunteerTable, .donorTable{
     width: 575px;
     padding-top: 25px;
