@@ -7,10 +7,18 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.Configuration;
+using System.IO;
 
 
 public partial class Volunteers : System.Web.UI.Page
 {
+    private int donorID; //variable to store Donor_ID output
+    private int donorStatusID = 4; //Status Map ID active hard coded 
+    private int donationID; //variable to store Donation_ID output
+    private int storeID = 1;
+    private bool bypassFlag = false;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -21,22 +29,13 @@ public partial class Volunteers : System.Web.UI.Page
 
     protected void btnToView2_Click(object sender, EventArgs e)
     {
-        MultiView1.ActiveViewIndex = 1;
-    }
-
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        //Insert information into Donor table
-        int donorStatusID = 2; //Status Map ID variable hard coded
-
-        String date = ddlYear.SelectedValue + "-" + ddlMonth.SelectedValue + "-" + ddlDay.SelectedValue;
-        DateTime dt = DateTime.Parse(date);
+        //Insert information into Donor table and output Donor_ID       
 
         //Create new SqlConnection using the connection string from web.config
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
         //Create new Sql Statement to insert data into the Volunteer table
-        SqlCommand cmd = new SqlCommand("Insert INTO Donor (Status_Map_ID, Last_Name, First_Name, Middle_Name, Gender, DOB, SSN, Address, Address2, City, State, Zip_Code, Phone, Email) VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender, @DOB, @SSN, @Address, @Address2, @City, @State, @Zip_Code, @Phone, @Email)", mConn);
+        SqlCommand cmd = new SqlCommand("Insert INTO Donor (Status_Map_ID, Last_Name, First_Name, Middle_Name, Gender, Address, Address2, City, State, ZipCode, Phone, Email) OUTPUT INSERTED.Donor_ID VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender,  @Address, @Address2, @City, @State, @ZipCode, @Phone, @Email)", mConn);
 
         //Define command type
         cmd.CommandType = CommandType.Text;
@@ -47,13 +46,11 @@ public partial class Volunteers : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@First_Name", tbFName.Text);
         cmd.Parameters.AddWithValue("@Middle_Name", tbMName.Text);
         cmd.Parameters.AddWithValue("@Gender", rBtnGender.SelectedValue);
-        cmd.Parameters.AddWithValue("@DOB", dt);
-        cmd.Parameters.AddWithValue("@SSN", tbSSN.Text);
         cmd.Parameters.AddWithValue("@Address", tbAddress.Text);
         cmd.Parameters.AddWithValue("@Address2", tbAddress2.Text);
         cmd.Parameters.AddWithValue("@City", tbCity.Text);
-        cmd.Parameters.AddWithValue("@State", ddlState.SelectedValue);
-        cmd.Parameters.AddWithValue("@Zip_Code", tbZip.Text);
+        cmd.Parameters.AddWithValue("@State", "NC");
+        cmd.Parameters.AddWithValue("@ZipCode", tbZip.Text);
         cmd.Parameters.AddWithValue("@Phone", tbPhone.Text);
         cmd.Parameters.AddWithValue("@Email", tbEmail.Text);
 
@@ -62,7 +59,7 @@ public partial class Volunteers : System.Web.UI.Page
             using (mConn)
             {
                 mConn.Open();
-                cmd.ExecuteNonQuery();
+                donorID = (int)cmd.ExecuteScalar(); //return Donor_ID data
             }
 
         }
@@ -71,7 +68,66 @@ public partial class Volunteers : System.Web.UI.Page
             lblDonorDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
         }
 
-        //insert information into Donation table
+        //Switch to Donation Information view
+        MultiView1.ActiveViewIndex = 1;
+
+        lblDonorID.Text = donorID.ToString();
+
+    }
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {   
+
+        //insert information into Donation table and output Donation_ID
+        //Create new SqlConnection using the connection string from web.config
+        SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+        //Create new Sql Statement to insert data into the Volunteer table
+        SqlCommand cmd = new SqlCommand("Insert INTO Donation (Store_ID, Donor_ID, Status_Map_ID, Address, Address2, City, State, ZipCode, Bypass_Flag) OUTPUT INSERTED.Donation_ID VALUES (@Store_ID, @Donor_ID, @Status_Map_ID, @Address, @Address2, @City, @State, @ZipCode, @Bypass_Flag)", mConn);
+
+        //Define command type
+        cmd.CommandType = CommandType.Text;
+
+        cmd.Parameters.AddWithValue("@Store_ID", storeID);
+        cmd.Parameters.AddWithValue("@Donor_ID", donorID);
+        cmd.Parameters.AddWithValue("@Status_Map_ID", donorStatusID);
+        cmd.Parameters.AddWithValue("@Address", tbAddress.Text);
+        cmd.Parameters.AddWithValue("@Address2", tbAddress2.Text);
+        cmd.Parameters.AddWithValue("@City", tbCity.Text);
+        cmd.Parameters.AddWithValue("@State", "NC");
+        cmd.Parameters.AddWithValue("@ZipCode", tbZip.Text);
+        cmd.Parameters.AddWithValue("@Bypass_Flag", bypassFlag);
+
+        try
+        {
+            using (mConn)
+            {
+                mConn.Open();
+                donationID = (int)cmd.ExecuteScalar(); //return Donation_ID data
+            }
+
+        }
+        catch (Exception ex)
+        {
+            lblDonorDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+        }
+
+
+
+        //Insert information into Item table and upload image data
+        HttpPostedFile postedFile = FileUpload1.PostedFile;
+        string filename = Path.GetFileName(postedFile.FileName);
+        string fileExtension = Path.GetExtension(filename);
+        int fileSize = postedFile.ContentLength;
+
+        if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif" || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
+        {
+            Stream stream = postedFile.InputStream;
+            BinaryReader binaryReader = new BinaryReader(stream);
+            Byte[] bytes = binaryReader.ReadBytes((int)stream.Length);
+            
+
+        }
 
 
     }

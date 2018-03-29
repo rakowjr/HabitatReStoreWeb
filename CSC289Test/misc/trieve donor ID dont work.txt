@@ -1,0 +1,35 @@
+string connectionString = null;
+        SqlConnection mConn;
+        SqlCommand cmd;
+        string sql = null;
+
+        connectionString = "Data Source=tcp:50.63.178.68,49172;Initial Catalog=Habitat_Restore_V2;User ID=rakowj2891;Password=1Password!";
+
+        sql = "SELECT [Donor_ID] FROM [Donor] WHERE ([Email] = tbEmail.Text)";
+
+        mConn = new SqlConnection(connectionString);
+
+        cmd = new SqlCommand(sql, mConn);
+
+        SqlDataReader sqlReader;
+        
+        try
+        {
+            mConn.Open();
+            
+
+             sqlReader = cmd.ExecuteReader();
+
+            while (sqlReader.Read())
+            {
+                donorID = (int)sqlReader.GetValue(0);
+            }
+            
+        
+        }
+        catch (Exception ex)
+        {
+            lblDonationDbError.Text = "Can not open connection!";
+        }
+
+        mConn.Close();

@@ -70,14 +70,19 @@
                 <td class="vtCol2">Date of Birth: </td>
                 <td class="vtCol3">
                     <span style="margin: 0 12px;">
-                        <asp:DropDownList ID="ddlMonth" runat="server" DataSourceID="SqlDataSourceMonth" DataTextField="Month" DataValueField="Month">
+                        <asp:DropDownList ID="ddlMonth" runat="server">
+                            <asp:ListItem> </asp:ListItem>
                         </asp:DropDownList>
                     </span>
                     <span style="margin: 0 12px;">
-                        <asp:DropDownList ID="ddlDay" runat="server" DataSourceID="SqlDataSourceDay" DataTextField="Day" DataValueField="Day"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlDay" runat="server">
+                            <asp:ListItem> </asp:ListItem>
+                        </asp:DropDownList>
                     </span>
                     <span style="margin: 0 12px;">
-                        <asp:DropDownList ID="ddlYear" runat="server" DataSourceID="SqlDataSourceYear" DataTextField="Year" DataValueField="Year"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlYear" runat="server">
+                            <asp:ListItem> </asp:ListItem>
+                        </asp:DropDownList>
                     </span>
                 </td>
                 <td class="vtCol4">
@@ -85,7 +90,7 @@
                     <asp:RequiredFieldValidator ID="valDay" runat="server" ControlToValidate="ddlDay" ErrorMessage="Birth day missing" InitialValue=" " ValidationGroup="Volunteers" ForeColor="Red" CssClass="volValidate">*</asp:RequiredFieldValidator>
                     <asp:requiredfieldvalidator runat="server" errormessage="Birth year missing" ID="valYear" ControlToValidate="ddlYear" InitialValue=" " ValidationGroup="Volunteers" ForeColor="Red" CssClass="volValidate">*</asp:requiredfieldvalidator>
                 </td>
-            </tr>
+            </tr>            
             <tr>
                 <td class="vtCol1"></td>
                 <td class="vtCol2">Social Security Number (no dashes): </td>
@@ -120,7 +125,7 @@
                     <asp:RequiredFieldValidator ID="valCity" runat="server" ErrorMessage="City missing" ValidationGroup="Volunteers" ControlToValidate="tbCity" Text="*" ForeColor="Red" CssClass="volValidate"></asp:RequiredFieldValidator>
                 </td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td class="vtCol1"></td>
                 <td class="vtCol2">State: </td>
                 <td class="vtCol3">
@@ -131,7 +136,7 @@
                 <td class="vtCol4">
                     <asp:requiredfieldvalidator runat="server" errormessage="State missing" ID="valState" ControlToValidate="ddlState" ForeColor="Red" InitialValue=" " ValidationGroup="Volunteers" CssClass="volValidate">*</asp:requiredfieldvalidator>
                 </td>
-            </tr>
+            </tr>-->
             <tr>
                 <td class="vtCol1"></td>
                 <td class="vtCol2">Zipcode: </td>
@@ -172,7 +177,7 @@
         </table>
         <div>
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" ValidationGroup="Volunteers" OnClick="btnSubmit_Click" CssClass="auto-style1" />
-            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Validation Check" ValidationGroup="Volunteers" />
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Validation Check" ValidationGroup="Volunteers" Visible="False" />
         </div>
         <div>
             <asp:label runat="server" ID="lblDbError"></asp:label>

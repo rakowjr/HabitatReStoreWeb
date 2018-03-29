@@ -8,10 +8,6 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">  
-    <asp:SqlDataSource ID="SqlDataSourceMonth" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [Month]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSourceDay" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [Day]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSourceYear" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [Year]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSourceState" runat="server" ConnectionString="<%$ ConnectionStrings:rakowj2891ConnectionString %>" SelectCommand="SELECT * FROM [State]"></asp:SqlDataSource>
     <div>
         <asp:MultiView ID="MultiView1" runat="server">
             <asp:View ID="ViewDonorInfo" runat="server">
@@ -61,43 +57,7 @@
 
                             </td>
                         </tr>
-                        <tr style="height: 12px">
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <span style="padding: 0 12px;">Month</span><span style="padding: 0 20px;">Day</span><span style="padding: 0 25px;">Year</span>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">Date of Birth: </td>
-                            <td class="dnCol3">
-                                <span style="margin: 0 12px;">
-                                    <asp:dropdownlist id="ddlMonth" runat="server" datasourceid="SqlDataSourceMonth" datatextfield="Month" datavaluefield="Month">
-                                    </asp:dropdownlist>
-                                </span>
-                                <span style="margin: 0 12px;">
-                                    <asp:dropdownlist id="ddlDay" runat="server" datasourceid="SqlDataSourceDay" datatextfield="Day" datavaluefield="Day"></asp:dropdownlist>
-                                </span>
-                                <span style="margin: 0 12px;">
-                                    <asp:dropdownlist id="ddlYear" runat="server" datasourceid="SqlDataSourceYear" datatextfield="Year" datavaluefield="Year"></asp:dropdownlist>
-                                </span>
-                            </td>
-                            <td class="dnCol4">
-                                <asp:requiredfieldvalidator runat="server" errormessage="Birth month missing" id="valMonth" controltovalidate="ddlMonth" initialvalue=" " validationgroup="Donors" forecolor="Red" cssclass="dnValidate">*</asp:requiredfieldvalidator>
-                                <asp:requiredfieldvalidator id="valDay" runat="server" controltovalidate="ddlDay" errormessage="Birth day missing" initialvalue=" " validationgroup="Donors" forecolor="Red" cssclass="dnValidate">*</asp:requiredfieldvalidator>
-                                <asp:requiredfieldvalidator runat="server" errormessage="Birth year missing" id="valYear" controltovalidate="ddlYear" initialvalue=" " validationgroup="Donors" forecolor="Red" cssclass="dnValidate">*</asp:requiredfieldvalidator>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">Social Security Number (no dashes): </td>
-                            <td class="dnCol3">
-                                <asp:textbox id="tbSSN" runat="server" cssclass="dnTB"></asp:textbox>
-                            </td>
-                            <td class="dnCol4"></td>
-                        </tr>
+                        
                         <tr>
                             <td class="dnCol1"></td>
                             <td class="dnCol2">Address: </td>
@@ -124,18 +84,6 @@
                             </td>
                             <td class="dnCol4">
                                 <asp:requiredfieldvalidator id="valCity" runat="server" errormessage="City missing" validationgroup="Donors" controltovalidate="tbCity" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">State: </td>
-                            <td class="dnCol3">
-                                <span style="margin: 0 12px;">
-                                    <asp:dropdownlist runat="server" id="ddlState" datasourceid="SqlDataSourceState" datatextfield="State" datavaluefield="State"></asp:dropdownlist>
-                                </span>
-                            </td>
-                            <td class="dnCol4">
-                                <asp:requiredfieldvalidator runat="server" errormessage="State missing" id="valState" controltovalidate="ddlState" forecolor="Red" initialvalue=" " validationgroup="Donors" cssclass="dnValidate">*</asp:requiredfieldvalidator>
                             </td>
                         </tr>
                         <tr>
@@ -189,7 +137,33 @@
                     <table class="donorTable">
                         <tr>
                             <td class="dnCol1"></td>
-                            <td class="dnCol2"></td>
+                            <td class="dnCol2">
+                                Upload a photo of the donation
+                            </td>
+                            <td class="dnCol3">
+                                <asp:FileUpload ID="FileUpload1" runat="server" />
+                            </td>
+                            <td class="dnCol4"></td>
+                        </tr>
+                        <tr>
+                            <td class="dnCol1"></td>
+                            <td class="dnCol2">
+                            </td>
+                            <td class="dnCol3"></td>
+                            <td class="dnCol4"></td>
+                        </tr>
+                        <tr>
+                            <td class="dnCol1"></td>
+                            <td class="dnCol2">
+                            </td>
+                            <td class="dnCol3"></td>
+                            <td class="dnCol4"></td>
+                        </tr>
+                        <tr>
+                            <td class="dnCol1"></td>
+                            <td class="dnCol2">
+                                <asp:Label ID="lblDonorID" runat="server"></asp:Label>
+                            </td>
                             <td class="dnCol3"></td>
                             <td class="dnCol4"></td>
                         </tr>
@@ -202,7 +176,10 @@
             </asp:View>
         </asp:MultiView>
         <div>
-            <asp:label runat="server" id="lblDonorDbError"></asp:label><br />
+            <asp:label runat="server" id="lblDonorDbError"></asp:label>
+            <br />
+            <asp:Label ID="lblDonorIDerror" runat="server"></asp:Label>
+            <br />
             <asp:Label ID="lblDonationDbError" runat="server"></asp:Label>
         </div>
     </div>
