@@ -154,35 +154,17 @@
                         <tr>
                             <td class="dnCol1"></td>
                             <td class="dnCol2">
-                                Upload a photo of the donation
+                                (optional) Upload a photo of the donation
                             </td>
                             <td class="dnCol3">
                                 <asp:FileUpload ID="FileUpload1" runat="server" Width="256px" />
                             </td>
                             <td class="dnCol4"></td>
                         </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">
-                                Donor ID</td>
-                            <td class="dnCol3">
-                                <asp:Label ID="lblDonorID" runat="server"></asp:Label>
-                            </td>
-                            <td class="dnCol4"></td>
-                        </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">
-                                Donation ID</td>
-                            <td class="dnCol3">
-                                <asp:Label ID="lblDonationID" runat="server"></asp:Label>
-                            </td>
-                            <td class="dnCol4"></td>
-                        </tr>
+                        
                     </table>
                     <div>
                         <asp:button id="btnSubmit" runat="server" text="Submit" validationgroup="Donations" onclick="btnSubmit_Click" cssclass="auto-style1" />
-                        <asp:button id="Button1" runat="server" onclick="Button1_Click" text="Validation Check" validationgroup="Donors" />
                     </div>
                 </div>
             </asp:View>

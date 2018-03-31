@@ -24,7 +24,7 @@ public partial class Volunteers : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            MultiView1.ActiveViewIndex = 0;
+            MultiView1.ActiveViewIndex = 1;
         }
     }
 
@@ -74,7 +74,7 @@ public partial class Volunteers : System.Web.UI.Page
         //Switch to Donation Information view
         MultiView1.ActiveViewIndex = 1;
 
-        lblDonorID.Text = donorID.ToString();
+        //lblDonorID.Text = donorID.ToString();
 
     }
 
@@ -117,7 +117,7 @@ public partial class Volunteers : System.Web.UI.Page
             lblDonorDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
         }
 
-        lblDonationID.Text = donationID.ToString();
+        //lblDonationID.Text = donationID.ToString();
 
         //Insert information into Item table and upload image data
         HttpPostedFile postedFile = FileUpload1.PostedFile;
@@ -167,11 +167,7 @@ public partial class Volunteers : System.Web.UI.Page
 
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        //does nothing but check validation and reg expressions for errors in validation group Donors
-        //remove from production page
-    }
+    
 
 
 

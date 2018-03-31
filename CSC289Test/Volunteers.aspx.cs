@@ -11,10 +11,14 @@ using System.Web.Configuration;
 
 public partial class Volunteers : System.Web.UI.Page
 {
-    private int volunteerID;
+    int volunteerID;
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            MultiView1.ActiveViewIndex = 0;
+        }
         for (int i = 1; i <= 12; i++)
         {
             ListItem ltItem = new ListItem();
@@ -53,7 +57,7 @@ public partial class Volunteers : System.Web.UI.Page
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
         //Create new Sql Statement to insert data into the Volunteer table
-        SqlCommand cmd = new SqlCommand("Insert INTO Volunteer (Status_Map_ID,Last_Name, First_Name, Middle_Name, Gender, DOB, SSN, Address, Address2, City, State, Zip_Code, Phone, Email) VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender, @DOB, @SSN, @Address, @Address2, @City, @State, @Zip_Code, @Phone, @Email)", mConn);
+        SqlCommand cmd = new SqlCommand("Insert INTO Volunteer (Status_Map_ID,Last_Name, First_Name, Middle_Name, Gender, DOB, SSN, Address, Address2, City, State, Zip_Code, Phone, Email) OUTPUT INSERTED.Volunteer_ID VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender, @DOB, @SSN, @Address, @Address2, @City, @State, @Zip_Code, @Phone, @Email)", mConn);
 
         //Define command type
         cmd.CommandType = CommandType.Text;
@@ -79,7 +83,8 @@ public partial class Volunteers : System.Web.UI.Page
             using (mConn)
             {
                 mConn.Open();
-                cmd.ExecuteNonQuery();
+                volunteerID = (int)cmd.ExecuteScalar();
+                mConn.Close();
             }
 
         }
@@ -88,11 +93,219 @@ public partial class Volunteers : System.Web.UI.Page
             lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
         }
 
+        MultiView1.ActiveViewIndex = 1;
     }
 
 
     protected void Button1_Click(object sender, EventArgs e)
     {
+        //does nothing but check validation
+    }
 
+    protected void volCatSubmit_Click(object sender, EventArgs e)
+    {
+        if (cblVolCategory.SelectedIndex == 1) {
+            //Create new SqlConnection using the connection string from web.config
+            SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+            //Create new Sql Statement to insert data into the Volunteer table
+            SqlCommand cmd = new SqlCommand("Insert INTO Volunteer_Category (VolunteerID, Category_Type_ID) VALUES (@VolunteerID, @Category_Type_ID)", mConn);
+
+            //Define command type
+            cmd.CommandType = CommandType.Text;
+
+            //provide values from page
+            cmd.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
+            cmd.Parameters.AddWithValue("@Category_Type_ID", 1);
+
+            try
+            {
+                using (mConn)
+                {
+                    mConn.Open();
+                    cmd.ExecuteNonQuery();
+                    mConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+            }
+        }
+        if (cblVolCategory.SelectedIndex == 2)
+        {
+            //Create new SqlConnection using the connection string from web.config
+            SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+            //Create new Sql Statement to insert data into the Volunteer table
+            SqlCommand cmd = new SqlCommand("Insert INTO Volunteer_Category (VolunteerID, Category_Type_ID) VALUES (@VolunteerID, @Category_Type_ID)", mConn);
+
+            //Define command type
+            cmd.CommandType = CommandType.Text;
+
+            //provide values from page
+            cmd.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
+            cmd.Parameters.AddWithValue("@Category_Type_ID", 2);
+
+            try
+            {
+                using (mConn)
+                {
+                    mConn.Open();
+                    cmd.ExecuteNonQuery();
+                    mConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+            }
+        }
+        if (cblVolCategory.SelectedIndex == 3)
+        {
+            //Create new SqlConnection using the connection string from web.config
+            SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+            //Create new Sql Statement to insert data into the Volunteer table
+            SqlCommand cmd = new SqlCommand("Insert INTO Volunteer_Category (VolunteerID, Category_Type_ID) VALUES (@VolunteerID, @Category_Type_ID)", mConn);
+
+            //Define command type
+            cmd.CommandType = CommandType.Text;
+
+            //provide values from page
+            cmd.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
+            cmd.Parameters.AddWithValue("@Category_Type_ID", 3);
+
+            try
+            {
+                using (mConn)
+                {
+                    mConn.Open();
+                    cmd.ExecuteNonQuery();
+                    mConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+            }
+        }
+        if (cblVolCategory.SelectedIndex == 4)
+        {
+            //Create new SqlConnection using the connection string from web.config
+            SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+            //Create new Sql Statement to insert data into the Volunteer table
+            SqlCommand cmd = new SqlCommand("Insert INTO Volunteer_Category (VolunteerID, Category_Type_ID) VALUES (@VolunteerID, @Category_Type_ID)", mConn);
+
+            //Define command type
+            cmd.CommandType = CommandType.Text;
+
+            //provide values from page
+            cmd.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
+            cmd.Parameters.AddWithValue("@Category_Type_ID", 4);
+
+            try
+            {
+                using (mConn)
+                {
+                    mConn.Open();
+                    cmd.ExecuteNonQuery();
+                    mConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+            }
+        }
+        if (cblVolCategory.SelectedIndex == 5)
+        {
+            //Create new SqlConnection using the connection string from web.config
+            SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+            //Create new Sql Statement to insert data into the Volunteer table
+            SqlCommand cmd = new SqlCommand("Insert INTO Volunteer_Category (VolunteerID, Category_Type_ID) VALUES (@VolunteerID, @Category_Type_ID)", mConn);
+
+            //Define command type
+            cmd.CommandType = CommandType.Text;
+
+            //provide values from page
+            cmd.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
+            cmd.Parameters.AddWithValue("@Category_Type_ID", 5);
+
+            try
+            {
+                using (mConn)
+                {
+                    mConn.Open();
+                    cmd.ExecuteNonQuery();
+                    mConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+            }
+        }
+        if (cblVolCategory.SelectedIndex == 6)
+        {
+            //Create new SqlConnection using the connection string from web.config
+            SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+            //Create new Sql Statement to insert data into the Volunteer table
+            SqlCommand cmd = new SqlCommand("Insert INTO Volunteer_Category (VolunteerID, Category_Type_ID) VALUES (@VolunteerID, @Category_Type_ID)", mConn);
+
+            //Define command type
+            cmd.CommandType = CommandType.Text;
+
+            //provide values from page
+            cmd.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
+            cmd.Parameters.AddWithValue("@Category_Type_ID", 6);
+
+            try
+            {
+                using (mConn)
+                {
+                    mConn.Open();
+                    cmd.ExecuteNonQuery();
+                    mConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+            }
+        }
+        if (cblVolCategory.SelectedIndex == 7)
+        {
+            //Create new SqlConnection using the connection string from web.config
+            SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+            //Create new Sql Statement to insert data into the Volunteer table
+            SqlCommand cmd = new SqlCommand("Insert INTO Volunteer_Category (VolunteerID, Category_Type_ID) VALUES (@VolunteerID, @Category_Type_ID)", mConn);
+
+            //Define command type
+            cmd.CommandType = CommandType.Text;
+
+            //provide values from page
+            cmd.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
+            cmd.Parameters.AddWithValue("@Category_Type_ID", 7);
+
+            try
+            {
+                using (mConn)
+                {
+                    mConn.Open();
+                    cmd.ExecuteNonQuery();
+                    mConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+            }
+        }
+        MultiView1.ActiveViewIndex = 2;
     }
 }

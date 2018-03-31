@@ -190,7 +190,7 @@ nav ul, nav ol {
     background: #FFF;
     width: 100%;
 }
-    #volunteerContent h2, #donorContent h2, #donationContent h2{
+    #volunteerContent h2, #volunteerContent h3, #donorContent h2, #donationContent h2 {
         text-align: center;
     }
 .volunteerTable, .donorTable{
@@ -243,6 +243,21 @@ nav ul, nav ol {
 }
 .itemCategoryList td{
     width: 175px;
+}
+.itemCategoryList td label{
+    padding-left: 10px;
+}
+.volunteerCategoryCB table{
+    margin: 0 auto;
+}
+.itemCategoryList tr{
+    height: 50px;
+}
+.volunteerCategoryCB td{
+    width: 150px;
+}
+.volunteerCategoryCB td label{
+    padding-left: 10px;
 }
 
  
