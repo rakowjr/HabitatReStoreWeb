@@ -18,6 +18,7 @@ public partial class Volunteers : System.Web.UI.Page
     private int donationID; //variable to store Donation_ID output
     private int storeID = 1;
     private bool bypassFlag = false;
+    //private int itemCategoryID = 12;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -60,6 +61,8 @@ public partial class Volunteers : System.Web.UI.Page
             {
                 mConn.Open();
                 donorID = (int)cmd.ExecuteScalar(); //return Donor_ID data
+                mConn.Close();
+                cmd.Dispose();
             }
 
         }
@@ -76,8 +79,8 @@ public partial class Volunteers : System.Web.UI.Page
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
-    {   
-
+    {
+        
         //insert information into Donation table and output Donation_ID
         //Create new SqlConnection using the connection string from web.config
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
@@ -104,6 +107,8 @@ public partial class Volunteers : System.Web.UI.Page
             {
                 mConn.Open();
                 donationID = (int)cmd.ExecuteScalar(); //return Donation_ID data
+                mConn.Close();
+                cmd.Dispose();
             }
 
         }
@@ -112,7 +117,7 @@ public partial class Volunteers : System.Web.UI.Page
             lblDonorDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
         }
 
-
+        lblDonationID.Text = donationID.ToString();
 
         //Insert information into Item table and upload image data
         HttpPostedFile postedFile = FileUpload1.PostedFile;
@@ -124,9 +129,39 @@ public partial class Volunteers : System.Web.UI.Page
         {
             Stream stream = postedFile.InputStream;
             BinaryReader binaryReader = new BinaryReader(stream);
-            Byte[] bytes = binaryReader.ReadBytes((int)stream.Length);
-            
+            Byte[] bytes = binaryReader.ReadBytes((int)stream.Length); //Byte array holds image data
 
+            SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+
+            SqlCommand cmdItem = new SqlCommand("Insert INTO Item (Donation_ID, Item_Category_ID, Donation_Image, Description) VALUES (@Donation_ID, @Item_Category_ID, @Donation_Image, @Description)", con);
+            cmdItem.CommandType = CommandType.Text;
+
+            cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
+            cmdItem.Parameters.AddWithValue("@Item_Category_ID", rbCategoryList.SelectedIndex); 
+            cmdItem.Parameters.AddWithValue("@Donation_Image", bytes);
+            cmdItem.Parameters.AddWithValue("@Description", tbDnDesc.Text); 
+
+            try
+            {
+                using (con)
+                {
+                    con.Open();
+                    cmdItem.ExecuteNonQuery();
+                    con.Close();
+                    cmdItem.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                lblItemDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
+            }
+        }
+        else
+        {
+            imageTypeError.Visible = true;
+            imageTypeError.Text = "Only images (.jpg, .png, .gif and .bmp) can be uploaded";
         }
 
 
@@ -135,6 +170,7 @@ public partial class Volunteers : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         //does nothing but check validation and reg expressions for errors in validation group Donors
+        //remove from production page
     }
 
 

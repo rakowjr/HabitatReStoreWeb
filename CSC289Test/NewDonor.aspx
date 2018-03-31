@@ -9,6 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">  
     <div>
+        <asp:sqldatasource runat="server" ID="ItemCategoryDs" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT [Item_Category_ID], [Description] FROM [Item_Category]"></asp:sqldatasource>
         <asp:MultiView ID="MultiView1" runat="server">
             <asp:View ID="ViewDonorInfo" runat="server">
                 <div id="donorContent">
@@ -134,37 +135,48 @@
             <asp:View ID="ViewDonationInfo" runat="server">
                 <div id ="donationContent">
                     <h2 style="padding: 40px 0;">Donation Information</h2>
+                    <div style="margin-left: 15px;">
+                        <h3>Choose a donation category</h3>
+                        <asp:RadioButtonList ID="rbCategoryList" runat="server" DataSourceID="ItemCategoryDs" DataTextField="Description" DataValueField="Item_Category_ID" RepeatColumns="4" RepeatDirection="Horizontal" CellSpacing="1" CssClass="itemCategoryList">
+                        </asp:RadioButtonList>
+                    </div>
                     <table class="donorTable">
+                        
+                        <tr>
+                            <td class="dnCol1"></td>
+                            <td class="dnCol2">
+                                Type a description of the donation</td>
+                            <td class="dnCol3">
+                                <asp:TextBox ID="tbDnDesc" runat="server" Height="84px" TextMode="MultiLine" Width="230px"></asp:TextBox>
+                            </td>
+                            <td class="dnCol4"></td>
+                        </tr>
                         <tr>
                             <td class="dnCol1"></td>
                             <td class="dnCol2">
                                 Upload a photo of the donation
                             </td>
                             <td class="dnCol3">
-                                <asp:FileUpload ID="FileUpload1" runat="server" />
+                                <asp:FileUpload ID="FileUpload1" runat="server" Width="256px" />
                             </td>
                             <td class="dnCol4"></td>
                         </tr>
                         <tr>
                             <td class="dnCol1"></td>
                             <td class="dnCol2">
-                            </td>
-                            <td class="dnCol3"></td>
-                            <td class="dnCol4"></td>
-                        </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">
-                            </td>
-                            <td class="dnCol3"></td>
-                            <td class="dnCol4"></td>
-                        </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">
+                                Donor ID</td>
+                            <td class="dnCol3">
                                 <asp:Label ID="lblDonorID" runat="server"></asp:Label>
                             </td>
-                            <td class="dnCol3"></td>
+                            <td class="dnCol4"></td>
+                        </tr>
+                        <tr>
+                            <td class="dnCol1"></td>
+                            <td class="dnCol2">
+                                Donation ID</td>
+                            <td class="dnCol3">
+                                <asp:Label ID="lblDonationID" runat="server"></asp:Label>
+                            </td>
                             <td class="dnCol4"></td>
                         </tr>
                     </table>
@@ -181,6 +193,10 @@
             <asp:Label ID="lblDonorIDerror" runat="server"></asp:Label>
             <br />
             <asp:Label ID="lblDonationDbError" runat="server"></asp:Label>
+            <br />
+            <asp:Label ID="lblItemDbError" runat="server"></asp:Label>
+            <br />
+            <asp:Label ID="imageTypeError" runat="server" ForeColor="Red" Visible="False"></asp:Label>
         </div>
     </div>
     
