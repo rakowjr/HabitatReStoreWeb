@@ -24,7 +24,12 @@ public partial class Volunteers : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            MultiView1.ActiveViewIndex = 1;
+            MultiView1.ActiveViewIndex = 0;
+        }
+        else
+        {
+            if (HttpContext.Current.Session["donorID"] != null)
+                donorID = (int)HttpContext.Current.Session["donorID"];
         }
     }
 
@@ -72,6 +77,7 @@ public partial class Volunteers : System.Web.UI.Page
         }
 
         //Switch to Donation Information view
+        HttpContext.Current.Session["donorID"] = donorID;
         MultiView1.ActiveViewIndex = 1;
 
         //lblDonorID.Text = donorID.ToString();

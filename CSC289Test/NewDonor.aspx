@@ -127,7 +127,7 @@
                         </tr>
                     </table>
                     <div>
-                        <asp:Button ID="btnToView2" runat="server" Text="Next" CssClass="auto-style1" OnClick="btnToView2_Click" ValidationGroup="Donors" />
+                        <asp:Button ID="btnToView2" runat="server" Text="Next" CssClass="auto-style1" OnClick="btnToView2_Click" ValidationGroup="Donors" IsPostBack="false"/>
                     </div>
                     <div style="height: 40px;"></div>
                 </div>
