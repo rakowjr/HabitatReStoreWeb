@@ -10,56 +10,54 @@ using System.Web.Configuration;
 using System.Configuration;
 using System.IO;
 
-
-public partial class Volunteers : System.Web.UI.Page
+public partial class ReturningDonor : System.Web.UI.Page
 {
-    private int donorID; //variable to store Donor_ID output
-    private int donorStatusID = 4; //Status Map ID active hard coded 
-    private int donationID; //variable to store Donation_ID output
+    private int donorID;
+    private int donationID;
+    private int donorStatusID = 4;
     private int storeID = 1;
     private bool bypassFlag = false;
-    //private int itemCategoryID = 12;
+    private string address;
+    private string address2;
+    private string city;
+    private string zipcode;
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        
         if (!IsPostBack)
         {
-            MultiView1.ActiveViewIndex = 2;
+            MultiView1.ActiveViewIndex = 0;
         }
         else
         {
             if (HttpContext.Current.Session["donorID"] != null)
                 donorID = (int)HttpContext.Current.Session["donorID"];
+            if (HttpContext.Current.Session["address"] != null)
+                address = (string)HttpContext.Current.Session["address"];
+            if (HttpContext.Current.Session["address2"] != null)
+                address2 = (string)HttpContext.Current.Session["address2"];
+            if (HttpContext.Current.Session["city"] != null)
+                city = (string)HttpContext.Current.Session["city"];
+            if (HttpContext.Current.Session["zipcode"] != null)
+                zipcode = (string)HttpContext.Current.Session["zipcode"];
         }
+
     }
 
-    protected void btnToView2_Click(object sender, EventArgs e)
+    //Get DonorID
+    protected void Submit_Click(object sender, EventArgs e)
     {
-        //Insert information into Donor table and output Donor_ID       
-
         //Create new SqlConnection using the connection string from web.config
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
         //Create new Sql Statement to insert data into the Volunteer table
-        SqlCommand cmd = new SqlCommand("Insert INTO Donor (Status_Map_ID, Last_Name, First_Name, Middle_Name, Gender, Address, Address2, City, State, ZipCode, Phone, Email) OUTPUT INSERTED.Donor_ID VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender,  @Address, @Address2, @City, @State, @ZipCode, @Phone, @Email)", mConn);
+        SqlCommand cmd = new SqlCommand("SELECT Donor_ID FROM Donor WHERE Email = @email", mConn);
 
-        //Define command type
         cmd.CommandType = CommandType.Text;
 
-        //provide values from page
-        cmd.Parameters.AddWithValue("@Status_Map_ID", donorStatusID);
-        cmd.Parameters.AddWithValue("@Last_Name", tbLName.Text);
-        cmd.Parameters.AddWithValue("@First_Name", tbFName.Text);
-        cmd.Parameters.AddWithValue("@Middle_Name", tbMName.Text);
-        cmd.Parameters.AddWithValue("@Gender", rBtnGender.SelectedValue);
-        cmd.Parameters.AddWithValue("@Address", tbAddress.Text);
-        cmd.Parameters.AddWithValue("@Address2", tbAddress2.Text);
-        cmd.Parameters.AddWithValue("@City", tbCity.Text);
-        cmd.Parameters.AddWithValue("@State", "NC");
-        cmd.Parameters.AddWithValue("@ZipCode", tbZip.Text);
-        cmd.Parameters.AddWithValue("@Phone", tbPhone.Text);
-        cmd.Parameters.AddWithValue("@Email", tbEmail.Text);
-
+        cmd.Parameters.AddWithValue("@email", tbEmail.Text);
         try
         {
             using (mConn)
@@ -73,20 +71,62 @@ public partial class Volunteers : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            lblDonorDbError.Text = "A Donor database error has occured.<br />" + "Message: " + ex.Message;
+            donorIdDbError.Text = "A Donor database error has occured.<br />" + "Message: " + ex.Message;
         }
 
-        //Switch to Donation Information view
-        HttpContext.Current.Session["donorID"] = donorID;
-        MultiView1.ActiveViewIndex = 1;
+        if(donorID != 0)
+        {
+            //Create new SqlConnection using the connection string from web.config
+            SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
-        //lblDonorID.Text = donorID.ToString();
+            //Create new Sql Statement to insert data into the Volunteer table
+            SqlCommand command = new SqlCommand("SELECT Address, Address2, City, ZipCode FROM Donor WHERE Donor_ID = @donorID", conn);
+
+            command.CommandType = CommandType.Text;
+
+            command.Parameters.AddWithValue("@donorID", donorID);
+
+            try
+            {
+                using (conn)
+                {
+                    conn.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        address = (string)reader[0];
+                        address2 = (string)reader[1];
+                        city = (string)reader[2];
+                        zipcode = (string)reader[3];
+                    }
+                    reader.Close();
+                    conn.Close();
+                    command.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblDonorIDerror.Text = "retrieving data from Donor table failed.<br />" + "Message: " + ex.Message;
+            }
+        }
+        else
+        {
+            lblIdNotFound.Text = "Sorry - We could not find the account with that email address<br />Please try again or call the office.";
+        }
+        //set session variables
+        HttpContext.Current.Session["donorID"] = donorID;
+        HttpContext.Current.Session["address"] = address;
+        HttpContext.Current.Session["address2"] = address2;
+        HttpContext.Current.Session["city"] = city;
+        HttpContext.Current.Session["zipcode"] = zipcode;
+        MultiView1.ActiveViewIndex = 1;
 
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        
         //insert information into Donation table and output Donation_ID
         //Create new SqlConnection using the connection string from web.config
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
@@ -100,11 +140,11 @@ public partial class Volunteers : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Store_ID", storeID);
         cmd.Parameters.AddWithValue("@Donor_ID", donorID);
         cmd.Parameters.AddWithValue("@Status_Map_ID", donorStatusID);
-        cmd.Parameters.AddWithValue("@Address", tbAddress.Text);
-        cmd.Parameters.AddWithValue("@Address2", tbAddress2.Text);
-        cmd.Parameters.AddWithValue("@City", tbCity.Text);
+        cmd.Parameters.AddWithValue("@Address", address);
+        cmd.Parameters.AddWithValue("@Address2", address2);
+        cmd.Parameters.AddWithValue("@City", city);
         cmd.Parameters.AddWithValue("@State", "NC");
-        cmd.Parameters.AddWithValue("@ZipCode", tbZip.Text);
+        cmd.Parameters.AddWithValue("@ZipCode", zipcode);
         cmd.Parameters.AddWithValue("@Bypass_Flag", bypassFlag);
 
         try
@@ -144,9 +184,9 @@ public partial class Volunteers : System.Web.UI.Page
             cmdItem.CommandType = CommandType.Text;
 
             cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
-            cmdItem.Parameters.AddWithValue("@Item_Category_ID", rbCategoryList.SelectedValue); 
+            cmdItem.Parameters.AddWithValue("@Item_Category_ID", rbCategoryList.SelectedValue);
             cmdItem.Parameters.AddWithValue("@Donation_Image", bytes);
-            cmdItem.Parameters.AddWithValue("@Description", tbDnDesc.Text); 
+            cmdItem.Parameters.AddWithValue("@Description", tbDnDesc.Text);
 
             try
             {
@@ -155,7 +195,7 @@ public partial class Volunteers : System.Web.UI.Page
                     con.Open();
                     cmdItem.ExecuteNonQuery();
                     con.Close();
-                    cmdItem.Dispose();                    
+                    cmdItem.Dispose();
                 }
 
             }
@@ -169,8 +209,6 @@ public partial class Volunteers : System.Web.UI.Page
             imageTypeError.Visible = true;
             imageTypeError.Text = "Only images (.jpg, .png, .gif and .bmp) can be uploaded";
         }
-        rbCategoryList.ClearSelection();
-        tbDnDesc.Text = "";
         MultiView1.ActiveViewIndex = 2;
     }
 

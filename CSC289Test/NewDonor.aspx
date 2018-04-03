@@ -107,6 +107,7 @@
                             <td class="dnCol4">
                                 <asp:requiredfieldvalidator id="valPhone" runat="server" errormessage="Phone Number missing" validationgroup="Donors" controltovalidate="tbPhone" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
                                 <asp:comparevalidator id="valPhoneData" runat="server" controltovalidate="tbPhone" cssclass="dnValidate" errormessage="Use only numbers for phone number" forecolor="Red" operator="DataTypeCheck" type="Integer" validationgroup="Donors">*</asp:comparevalidator>
+                                <asp:RegularExpressionValidator ID="valPhoneLength" runat="server" ErrorMessage=" Incorrect phone number format" Text="*" ValidationGroup="Donors" ValidationExpression="\d{10}" ControlToValidate="tbPhone" CssClass="dnValidate"></asp:RegularExpressionValidator>
                             </td>
                         </tr>
                         <tr>
@@ -140,8 +141,7 @@
                         <asp:RadioButtonList ID="rbCategoryList" runat="server" DataSourceID="ItemCategoryDs" DataTextField="Description" DataValueField="Item_Category_ID" RepeatColumns="4" RepeatDirection="Horizontal" CellSpacing="1" CssClass="itemCategoryList">
                         </asp:RadioButtonList>
                     </div>
-                    <table class="donorTable">
-                        
+                    <table class="donorTable">                        
                         <tr>
                             <td class="dnCol1"></td>
                             <td class="dnCol2">
@@ -153,19 +153,27 @@
                         </tr>
                         <tr>
                             <td class="dnCol1"></td>
-                            <td class="dnCol2">
+                            <td class="dnCol2" style="height: 80px">
                                 (optional) Upload a photo of the donation
                             </td>
                             <td class="dnCol3">
                                 <asp:FileUpload ID="FileUpload1" runat="server" Width="256px" />
                             </td>
                             <td class="dnCol4"></td>
-                        </tr>
-                        
+                        </tr>                        
                     </table>
                     <div>
                         <asp:button id="btnSubmit" runat="server" text="Submit" validationgroup="Donations" onclick="btnSubmit_Click" cssclass="auto-style1" />
                     </div>
+                </div>
+            </asp:View>
+            <asp:View ID="ViewDonationChoice" runat="server">
+                <div style="text-align: center; padding-top: 40px;">
+                    <h3>Thank you for your donation.</h3>
+                    <p style="margin-top:25px;">A representative will contact you with the date scheduled for your pick-up</p>
+                </div>
+                <div style="height: 125px; width: 480px; padding-top: 40px;">
+                    <span style="text-align: center; float: left;"><asp:Button ID="btnScheduleMore" runat="server" Text="I would like to donate another item" OnClick="btnScheduleMore_Click" Width="230px" /></span><span style="text-align: center; float: right;"><asp:Button ID="btnScheduleDone" runat="server" Text="I am finished with the donation" OnClick="btnScheduleDone_Click" Width="230px" /></span>
                 </div>
             </asp:View>
         </asp:MultiView>

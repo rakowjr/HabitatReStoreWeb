@@ -1,0 +1,18 @@
+<tr>
+	<td class="dnCol1"></td>
+	<td class="dnCol2">
+		Donor ID</td>
+	<td class="dnCol3">
+		<asp:Label ID="lblDonorID" runat="server"></asp:Label>
+	</td>
+	<td class="dnCol4"></td>
+</tr>
+<tr>
+	<td class="dnCol1"></td>
+	<td class="dnCol2">
+		Donation ID</td>
+	<td class="dnCol3">
+		<asp:Label ID="lblDonationID" runat="server"></asp:Label>
+	</td>
+	<td class="dnCol4"></td>
+</tr>
