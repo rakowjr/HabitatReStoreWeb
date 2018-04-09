@@ -106,7 +106,6 @@
                             </td>
                             <td class="dnCol4">
                                 <asp:requiredfieldvalidator id="valPhone" runat="server" errormessage="Phone Number missing" validationgroup="Donors" controltovalidate="tbPhone" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
-                                <asp:comparevalidator id="valPhoneData" runat="server" controltovalidate="tbPhone" cssclass="dnValidate" errormessage="Use only numbers for phone number" forecolor="Red" operator="DataTypeCheck" type="Integer" validationgroup="Donors">*</asp:comparevalidator>
                                 <asp:RegularExpressionValidator ID="valPhoneLength" runat="server" ErrorMessage=" Incorrect phone number format" Text="*" ValidationGroup="Donors" ValidationExpression="\d{10}" ControlToValidate="tbPhone" CssClass="dnValidate"></asp:RegularExpressionValidator>
                             </td>
                         </tr>
@@ -136,6 +135,57 @@
             <asp:View ID="ViewDonationInfo" runat="server">
                 <div id ="donationContent">
                     <h2 style="padding: 40px 0;">Donation Information</h2>
+                    <div>
+                        <asp:CheckBox ID="cbDifAddr" runat="server" Text="Pick-up address is different from Donor's address" AutoPostBack="True" OnCheckedChanged="cbDifAddr_CheckedChanged" />
+                        <asp:Panel ID="PanelAltAddr" runat="server" Visible="False">
+                            <table class="donorTable">
+                                <tr>
+                            <td class="dnCol1"></td>
+                            <td class="dnCol2">Address: </td>
+                            <td class="dnCol3">
+                                <asp:textbox id="tbAltAddress" runat="server" cssclass="dnTB"></asp:textbox>
+                            </td>
+                            <td class="vtCol4">
+                                <asp:requiredfieldvalidator id="Requiredfieldvalidator1" runat="server" errormessage="Address missing" validationgroup="AltAddress" controltovalidate="tbAltAddress" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dnCol1"></td>
+                            <td class="dnCol2">Address 2: </td>
+                            <td class="dnCol3">
+                                <asp:textbox id="tbAltAddress2" runat="server" cssclass="dnTB"></asp:textbox>
+                            </td>
+                            <td class="dnCol4"></td>
+                        </tr>
+                        <tr>
+                            <td class="dnCol1"></td>
+                            <td class="dnCol2">City: </td>
+                            <td class="dnCol3">
+                                <asp:textbox id="tbAltCity" runat="server" cssclass="dnTB"></asp:textbox>
+                            </td>
+                            <td class="dnCol4">
+                                <asp:requiredfieldvalidator id="Requiredfieldvalidator2" runat="server" errormessage="City missing" validationgroup="AltAddress" controltovalidate="tbAltCity" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="dnCol1"></td>
+                            <td class="dnCol2">Zipcode: </td>
+                            <td class="dnCol3">
+                                <asp:textbox id="tbAltZip" runat="server" cssclass="dnTB"></asp:textbox>
+                            </td>
+                            <td class="vtCol4">
+                                <asp:requiredfieldvalidator id="Requiredfieldvalidator3" runat="server" errormessage="Zip Code missing" validationgroup="AltAddress" controltovalidate="tbAltZip" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
+                                <asp:regularexpressionvalidator id="Regularexpressionvalidator1" runat="server" controltovalidate="tbAltZip" cssclass="volExpr" errormessage="Incorrect Zipcode Format" forecolor="Red" validationexpression="\d{5}" validationgroup="AltAddress">*</asp:regularexpressionvalidator>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan ="4">
+                                <asp:ValidationSummary ID="ValAltAddress" runat="server" ValidationGroup="AltAddress" ForeColor="Red" />
+                            </td>
+                        </tr>
+                            </table>
+                        </asp:Panel>
+                    </div>
                     <div style="margin-left: 15px;">
                         <h3>Choose a donation category</h3>
                         <asp:RadioButtonList ID="rbCategoryList" runat="server" DataSourceID="ItemCategoryDs" DataTextField="Description" DataValueField="Item_Category_ID" RepeatColumns="4" RepeatDirection="Horizontal" CellSpacing="1" CssClass="itemCategoryList">
@@ -147,7 +197,7 @@
                             <td class="dnCol2">
                                 Type a description of the donation</td>
                             <td class="dnCol3">
-                                <asp:TextBox ID="tbDnDesc" runat="server" Height="84px" TextMode="MultiLine" Width="230px"></asp:TextBox>
+                                <asp:TextBox ID="tbDnDesc" runat="server" Height="49px" TextMode="MultiLine" Width="230px"></asp:TextBox>
                             </td>
                             <td class="dnCol4"></td>
                         </tr>
@@ -162,9 +212,22 @@
                             <td class="dnCol4"></td>
                         </tr>                        
                     </table>
+                    
+                    <div>
+                        <asp:Label ID="lblCategoryVal" runat="server" Text=""></asp:Label>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="rbCategoryList" ErrorMessage="You Must Choose a Donation Category" ForeColor="Red">*</asp:RequiredFieldValidator>
+                    </div>
                     <div>
                         <asp:button id="btnSubmit" runat="server" text="Submit" validationgroup="Donations" onclick="btnSubmit_Click" cssclass="auto-style1" />
                     </div>
+                </div>
+            </asp:View>
+            <asp:View ID="AnotherItemOrDone" runat="server">
+                <div style="text-align: center; padding-top: 40px;">
+                    <h3>Would you like to add more items to your donation?</h3>
+                </div>
+                <div style="height: 125px; width: 480px; padding-top: 40px;">
+                    <span style="text-align: center; float: left;"><asp:Button ID="btnScheduleMore" runat="server" Text="Yes, let me add more items" OnClick="btnScheduleMore_Click" Width="200px" /></span><span style="text-align: center; float: right;"><asp:Button ID="btnScheduleDone" runat="server" Text="No, I am finished" OnClick="btnScheduleDone_Click" Width="200px" /></span>
                 </div>
             </asp:View>
             <asp:View ID="ViewDonationChoice" runat="server">
@@ -172,9 +235,7 @@
                     <h3>Thank you for your donation.</h3>
                     <p style="margin-top:25px;">A representative will contact you with the date scheduled for your pick-up</p>
                 </div>
-                <div style="height: 125px; width: 480px; padding-top: 40px;">
-                    <span style="text-align: center; float: left;"><asp:Button ID="btnScheduleMore" runat="server" Text="I would like to donate another item" OnClick="btnScheduleMore_Click" Width="230px" /></span><span style="text-align: center; float: right;"><asp:Button ID="btnScheduleDone" runat="server" Text="I am finished with the donation" OnClick="btnScheduleDone_Click" Width="230px" /></span>
-                </div>
+                
             </asp:View>
         </asp:MultiView>
         <div>

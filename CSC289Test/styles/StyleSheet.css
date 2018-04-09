@@ -16,8 +16,8 @@ html {
 	-ms-text-size-adjust: 100%;
 }
 html, button, input, select, textarea {
-	font-family: sans-serif;
-	color: #2f568c;
+    font-family: Arial,Helvetica,sans-serif;
+    color: black;
 }
 
 
