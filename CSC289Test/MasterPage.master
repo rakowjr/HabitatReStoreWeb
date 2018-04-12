@@ -22,19 +22,19 @@
             <nav class="clearfix">
                 <ul>
                     <li>
-                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="https://www.habitatforsyth.org/about-us/">About Us</asp:HyperLink></li>
+                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="#">About Us</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="#">Get Involved</asp:HyperLink></li>
+                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="#">ReStores</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="https://www.habitatforsyth.org/housing-programs/">Housing</asp:HyperLink></li>
+                        <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="#">Volunteer</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="https://www.habitatforsyth.org/training-education/">Education</asp:HyperLink></li>
-                    <li>
+                        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="#">Donate</asp:HyperLink></li>
+                    <!--<li>
                         <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="#">ReStores</asp:HyperLink>
                     </li>
                     <li>
                         <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="#">Donate</asp:HyperLink>
-                    </li>
+                    </li>-->
                 </ul>
                 
             </nav>

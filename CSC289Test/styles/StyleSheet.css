@@ -46,7 +46,7 @@ header{
         z-index: 999;
     }
     header nav ul{
-        margin-left: 320px;
+        margin-left: 320px; /*320*/
     }
 
         header nav ul li {
@@ -54,7 +54,7 @@ header{
             display: block;
             float: left;
             position: relative;
-            padding: 0 14px;
+            padding: 0 30px; /*0 14*/
         }
             header nav ul li.first {
                 background: none;
@@ -65,7 +65,7 @@ header{
                 float: left;
                 line-height: 69px;
                 height: 69px;
-                font-size: 18px;
+                font-size: 24px; /*18*/
                 color: #fff;
                 text-decoration: none;
                 text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.33);

@@ -44,7 +44,7 @@ public partial class NewDonor : System.Web.UI.Page
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
         //Create new Sql Statement to insert data into the Donor table
-        SqlCommand cmd = new SqlCommand("usp_AddConor", mConn);
+        SqlCommand cmd = new SqlCommand("usp_AddDonor", mConn);
 
         //Define command type
         cmd.CommandType = CommandType.Text;
