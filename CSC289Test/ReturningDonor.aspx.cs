@@ -54,7 +54,7 @@ public partial class ReturningDonor : System.Web.UI.Page
         //Create new SqlConnection using the connection string from web.config
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
-        //Create new Sql Statement to insert data into the Volunteer table
+        //Create new Sql Statement to select donorID
         SqlCommand cmd = new SqlCommand("SELECT Donor_ID FROM Donor WHERE Email = @email", mConn);
 
         cmd.CommandType = CommandType.Text;
@@ -343,6 +343,7 @@ public partial class ReturningDonor : System.Web.UI.Page
     protected void btnScheduleDone_Click(object sender, EventArgs e)
     {
         MultiView1.ActiveViewIndex = 3;
+        lblDonationRef.Text = Convert.ToString(donationID);
         //Response.Redirect("Default.aspx");
     }
 

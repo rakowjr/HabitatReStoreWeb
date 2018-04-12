@@ -122,6 +122,7 @@
             <asp:View ID="ViewDonationChoice" runat="server">
                 <div style="text-align: center; padding-top: 40px;">
                     <h3>Thank you for your donation.</h3>
+                    <p style="margin-top:25px;">Your donation reference number is: <asp:Label runat="server" ID="lblDonationRef"></asp:Label></p>
                     <p style="margin-top:25px;">A representative will contact you with the date scheduled for your pick-up</p>
                 </div>
                 
@@ -138,6 +139,6 @@
             <br />
             <asp:Label ID="imageTypeError" runat="server" ForeColor="Red" Visible="False"></asp:Label>
         </div>
-    </asp:MultiView>
+    
 </asp:Content>
 

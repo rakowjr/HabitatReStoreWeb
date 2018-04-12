@@ -11,7 +11,7 @@ using System.Configuration;
 using System.IO;
 
 
-public partial class Donations : System.Web.UI.Page
+public partial class NewDonor : System.Web.UI.Page
 {
     private int donorID; //variable to store Donor_ID output
     private int donorStatusID = 2; //Status Map ID = donor/submitted
@@ -19,6 +19,7 @@ public partial class Donations : System.Web.UI.Page
     private int donationID; //variable to store Donation_ID output
     private int storeID = 1;
     private bool bypassFlag = false;
+    //private int itemCategoryID = 12;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -35,7 +36,7 @@ public partial class Donations : System.Web.UI.Page
         }
     }
 
-    protected void btnSubmitDonor_Click(object sender, EventArgs e)
+    protected void btnToView2_Click(object sender, EventArgs e)
     {
         //Insert information into Donor table and output Donor_ID       
 
@@ -43,7 +44,7 @@ public partial class Donations : System.Web.UI.Page
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
         //Create new Sql Statement to insert data into the Donor table
-        SqlCommand cmd = new SqlCommand("Insert INTO Donor (Status_Map_ID, Last_Name, First_Name, Middle_Name, Gender, Address, Address2, City, State, ZipCode, Phone, Email) OUTPUT INSERTED.Donor_ID VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender,  @Address, @Address2, @City, @State, @ZipCode, @Phone, @Email)", mConn);
+        SqlCommand cmd = new SqlCommand("usp_AddConor", mConn);
 
         //Define command type
         cmd.CommandType = CommandType.Text;
@@ -81,11 +82,12 @@ public partial class Donations : System.Web.UI.Page
         //Switch to Donation Information view
         HttpContext.Current.Session["donorID"] = donorID;
         MultiView1.ActiveViewIndex = 1;
+
     }
 
-    protected void btnSubmitDonation_Click(object sender, EventArgs e)
+    protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        if (HttpContext.Current.Session["donationID"] != null) //A donation is already started
+        if(HttpContext.Current.Session["donationID"] != null) //A donation is already started
         {
             //Insert information into Item table and upload image data
             HttpPostedFile newPostedFile = FileUpload1.PostedFile;
@@ -93,7 +95,7 @@ public partial class Donations : System.Web.UI.Page
             string fileExtension = Path.GetExtension(newFilename);
             int newFileSize = newPostedFile.ContentLength;
 
-            if (FileUpload1.HasFile == true)
+            if(FileUpload1.HasFile == true)
             {
                 if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif" || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
                 {
@@ -170,7 +172,7 @@ public partial class Donations : System.Web.UI.Page
             SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
             //Create new Sql Statement to insert data into the Volunteer table
-            SqlCommand cmd = new SqlCommand("Insert INTO Donation (Store_ID, Donor_ID, Status_Map_ID, Address, Address2, City, State, ZipCode, Bypass_Flag) OUTPUT INSERTED.Donation_ID VALUES (@Store_ID, @Donor_ID, @Status_Map_ID, @Address, @Address2, @City, @State, @ZipCode, @Bypass_Flag)", mConn);
+            SqlCommand cmd = new SqlCommand("usp_AddDonation", mConn);
 
             //Define command type
             cmd.CommandType = CommandType.Text;
@@ -228,7 +230,7 @@ public partial class Donations : System.Web.UI.Page
             string fileExtension = Path.GetExtension(filename);
             int fileSize = postedFile.ContentLength;
 
-            if (FileUpload1.HasFile == true) //User has chosen an image
+            if(FileUpload1.HasFile == true) //User has chosen an image
             {
                 if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif" || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
                 {
@@ -298,10 +300,10 @@ public partial class Donations : System.Web.UI.Page
                 }
             } //user has not chosen an image
         } //no donation made yet  
-
+        
         rbCategoryList.ClearSelection();
         tbDnDesc.Text = "";
-        MultiView1.ActiveViewIndex = 2;
+        MultiView1.ActiveViewIndex = 2;       
     }
 
     protected void btnScheduleMore_Click(object sender, EventArgs e)
@@ -313,11 +315,12 @@ public partial class Donations : System.Web.UI.Page
     {
         MultiView1.ActiveViewIndex = 3;
         lblDonationRef.Text = Convert.ToString(donationID);
+        //Response.Redirect("Default.aspx");
     }
 
-    protected void dbDiffAddr_CheckedChanged(object sender, EventArgs e)
+    protected void cbDifAddr_CheckedChanged(object sender, EventArgs e)
     {
-        if (cbDiffAddr.Checked == true)
+        if (cbDifAddr.Checked == true)
         {
             PanelAltAddr.Visible = true;
         }
