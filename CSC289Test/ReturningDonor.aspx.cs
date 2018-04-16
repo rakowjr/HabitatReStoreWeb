@@ -21,6 +21,10 @@ public partial class ReturningDonor : System.Web.UI.Page
     private string address2;
     private string city;
     private string zipcode;
+    private string pickupDate;
+    private string startTime;
+    private string endTime;
+    private int completed = 0;
 
 
     protected void Page_Load(object sender, EventArgs e)
@@ -152,7 +156,7 @@ public partial class ReturningDonor : System.Web.UI.Page
                     cmdItem.CommandType = CommandType.Text;
 
                     cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
-                    cmdItem.Parameters.AddWithValue("@Item_Category_ID", rbCategoryList.SelectedValue);
+                    cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
                     cmdItem.Parameters.AddWithValue("@Donation_Image", bytes);
                     cmdItem.Parameters.AddWithValue("@Description", tbDnDesc.Text);
 
@@ -187,7 +191,7 @@ public partial class ReturningDonor : System.Web.UI.Page
                 cmdItem.CommandType = CommandType.Text;
 
                 cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
-                cmdItem.Parameters.AddWithValue("@Item_Category_ID", rbCategoryList.SelectedValue);
+                cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
                 cmdItem.Parameters.AddWithValue("@Description", tbDnDesc.Text);
 
                 try
@@ -275,7 +279,7 @@ public partial class ReturningDonor : System.Web.UI.Page
                     cmdItem.CommandType = CommandType.Text;
 
                     cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
-                    cmdItem.Parameters.AddWithValue("@Item_Category_ID", rbCategoryList.SelectedValue);
+                    cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
                     cmdItem.Parameters.AddWithValue("@Donation_Image", bytes);
                     cmdItem.Parameters.AddWithValue("@Description", tbDnDesc.Text);
 
@@ -309,7 +313,7 @@ public partial class ReturningDonor : System.Web.UI.Page
                 cmdItem.CommandType = CommandType.Text;
 
                 cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
-                cmdItem.Parameters.AddWithValue("@Item_Category_ID", rbCategoryList.SelectedValue);
+                cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
                 cmdItem.Parameters.AddWithValue("@Description", tbDnDesc.Text);
 
                 try
@@ -358,5 +362,46 @@ public partial class ReturningDonor : System.Web.UI.Page
         {
             PanelAltAddr.Visible = false;
         }
+    }
+
+    protected void CalendarPickup_SelectionChanged(object sender, EventArgs e)
+    {
+        pickupDate = CalendarPickup.SelectedDate.ToString("yyyy-MM-dd");
+    }
+
+    protected void SubmitRequest_Click(object sender, EventArgs e)
+    {
+        String startPickup = pickupDate + " " + ddlStartWindow.SelectedValue.ToString();
+        DateTime startTime = DateTime.Parse(startPickup);
+        String endPickup = pickupDate + " " + ddlEndWindow.SelectedValue.ToString();
+        DateTime endTime = DateTime.Parse(endPickup);
+
+        SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+
+        SqlCommand cmdItem = new SqlCommand("usp_AddDonation_PickUp_Schedule", con);
+        cmdItem.CommandType = CommandType.StoredProcedure;
+
+        cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
+        cmdItem.Parameters.AddWithValue("@PickUp_Window_Start", startTime);
+        cmdItem.Parameters.AddWithValue("@PickUp_Window_End", endTime);
+        cmdItem.Parameters.AddWithValue("@Special_Instructions", tbSpecialInstr.Text);
+        cmdItem.Parameters.AddWithValue("@Completed", completed);
+
+        try
+        {
+            using (con)
+            {
+                con.Open();
+                cmdItem.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            lblSchedDbError.Text = "A Schedule database error has occurred.< br /> " + "Message: " + ex.Message;
+        }
+        MultiView1.ActiveViewIndex = 4;
+        lblDonationRef.Text = Convert.ToString(donationID);
     }
 }

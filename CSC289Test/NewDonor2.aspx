@@ -234,7 +234,73 @@
                 <div style="text-align: center; padding-top: 40px;">
                     <h3>Thank you for your donation.</h3>
                     <p style="margin-top:25px;">Your donation reference number is: <asp:Label runat="server" ID="lblDonationRef"></asp:Label></p>
-                    <p style="margin-top:25px;">A representative will contact you with the date scheduled for your pick-up</p>
+                    <p style="margin-top:25px;">
+                        Please select a day you would like have us pick up your donation. (We do not pick up on Sundays)</p>
+                    <p style="margin-top:25px;">
+                        <asp:TextBox ID="TextBox1" runat="server" Width="112px"></asp:TextBox>
+                        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                    </p>
+                    <p style="margin-top:25px;">
+                        <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" OnSelectionChanged="Calendar1_SelectionChanged" Width="200px">
+                            <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+                            <NextPrevStyle VerticalAlign="Bottom" />
+                            <OtherMonthDayStyle ForeColor="#808080" />
+                            <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+                            <SelectorStyle BackColor="#CCCCCC" />
+                            <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+                            <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
+                            <WeekendDayStyle BackColor="#FFFFCC" />
+                        </asp:Calendar>
+                    </p>
+                    <p style="margin-top:25px;">
+                        <asp:Label ID="Label1" runat="server" Text="The Best Time For Pickup Would Be Between "></asp:Label>
+                        <asp:DropDownList ID="ddlStartWindow" runat="server" AutoPostBack="True" Width="100px" OnSelectedIndexChanged="ddlStartWindow_SelectedIndexChanged" Height="21px">
+                            <asp:ListItem></asp:ListItem>
+                            <asp:ListItem Value="9:00">9:00 AM</asp:ListItem>
+                            <asp:ListItem Value="9:30">9:30 AM</asp:ListItem>
+                            <asp:ListItem Value="10:00">10:00 AM</asp:ListItem>
+                            <asp:ListItem Value="10:30">10:30 AM</asp:ListItem>
+                            <asp:ListItem Value="11:00">11:00 AM</asp:ListItem>
+                            <asp:ListItem Value="11:30">11:30 AM</asp:ListItem>
+                            <asp:ListItem Value="12:00">12:00 PM</asp:ListItem>
+                            <asp:ListItem Value="12:30">12:30 PM</asp:ListItem>
+                            <asp:ListItem Value="13:00">1:00 PM</asp:ListItem>
+                            <asp:ListItem Value="13:30">1:30 PM</asp:ListItem>
+                            <asp:ListItem Value="14:00">2:00 PM</asp:ListItem>
+                            <asp:ListItem Value="14:30">2:30 PM</asp:ListItem>
+                            <asp:ListItem Value="15:00">3:00 PM</asp:ListItem>
+                            <asp:ListItem Value="15:30">3:30 PM</asp:ListItem>
+                            <asp:ListItem Value="16:00">4:00 PM</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:Label ID="Label2" runat="server" Text=" And "></asp:Label>
+                        <asp:DropDownList ID="ddlEndWindow" runat="server" AutoPostBack="True" Width="100px" OnSelectedIndexChanged="ddlEndWindow_SelectedIndexChanged">
+                            <asp:ListItem></asp:ListItem>
+                            <asp:ListItem Value="10:00">10:00 AM</asp:ListItem>
+                            <asp:ListItem Value="10:30">10:30 AM</asp:ListItem>
+                            <asp:ListItem Value="11:00">11:00 AM</asp:ListItem>
+                            <asp:ListItem Value="11:30">11:30 AM</asp:ListItem>
+                            <asp:ListItem Value="12:00">12:00 PM</asp:ListItem>
+                            <asp:ListItem Value="12:30">12:30 PM</asp:ListItem>
+                            <asp:ListItem Value="13:00">1:00 PM</asp:ListItem>
+                            <asp:ListItem Value="13:30">1:30 PM</asp:ListItem>
+                            <asp:ListItem Value="14:00">2:00 PM</asp:ListItem>
+                            <asp:ListItem Value="14:30">2:30 PM</asp:ListItem>
+                            <asp:ListItem Value="15:00">3:00 PM</asp:ListItem>
+                            <asp:ListItem Value="15:30">3:30 PM</asp:ListItem>
+                            <asp:ListItem Value="16:00">4:00 PM</asp:ListItem>
+                            <asp:ListItem Value="16:30">4:30 PM</asp:ListItem>
+                            <asp:ListItem Value="17:00">5:00 PM</asp:ListItem>
+                        </asp:DropDownList>
+                    </p>
+                    <p style="margin-top:25px;">
+                        If you have any special instructions for our drivers, please put them here:
+                        <asp:TextBox ID="tbSpecialInstr" runat="server" ReadOnly="True" TextMode="MultiLine"></asp:TextBox>
+                    </p>
+                    <p style="margin-top:25px;">
+                        <asp:Button ID="btnPickupSchedule" runat="server" Text="Submit Your Choice" />
+                    </p>
+                    <p style="margin-top:25px;">A representative will contact you to confirm the date scheduled for your pick-up</p>
                 </div>
                 
             </asp:View>

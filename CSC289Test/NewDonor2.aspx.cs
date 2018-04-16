@@ -47,10 +47,10 @@ public partial class NewDonor : System.Web.UI.Page
         SqlCommand cmd = new SqlCommand("usp_AddDonor", mConn);
 
         //Define command type
-        cmd.CommandType = CommandType.Text;
+        cmd.CommandType = CommandType.StoredProcedure;
 
         //provide values from page
-        cmd.Parameters.AddWithValue("@Status_Map_ID", donorStatusID);
+        
         cmd.Parameters.AddWithValue("@Last_Name", tbLName.Text);
         cmd.Parameters.AddWithValue("@First_Name", tbFName.Text);
         cmd.Parameters.AddWithValue("@Middle_Name", tbMName.Text);
@@ -58,7 +58,6 @@ public partial class NewDonor : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Address", tbAddress.Text);
         cmd.Parameters.AddWithValue("@Address2", tbAddress2.Text);
         cmd.Parameters.AddWithValue("@City", tbCity.Text);
-        cmd.Parameters.AddWithValue("@State", "NC");
         cmd.Parameters.AddWithValue("@ZipCode", tbZip.Text);
         cmd.Parameters.AddWithValue("@Phone", tbPhone.Text);
         cmd.Parameters.AddWithValue("@Email", tbEmail.Text);
@@ -175,7 +174,7 @@ public partial class NewDonor : System.Web.UI.Page
             SqlCommand cmd = new SqlCommand("usp_AddDonation", mConn);
 
             //Define command type
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.StoredProcedure;
 
             string address;
             string address2;
@@ -328,5 +327,20 @@ public partial class NewDonor : System.Web.UI.Page
         {
             PanelAltAddr.Visible = false;
         }
+    }
+
+    protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+    {
+        TextBox1.Text = Calendar1.SelectedDate.ToString("yyyy-MM-dd");
+    }
+
+    protected void ddlStartWindow_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        TextBox2.Text = Calendar1.SelectedDate.ToString("yyyy-MM-dd") + " " + ddlStartWindow.SelectedValue.ToString();
+    }
+
+    protected void ddlEndWindow_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        TextBox3.Text = Calendar1.SelectedDate.ToString("yyyy-MM-dd") + " " + ddlEndWindow.SelectedValue.ToString();
     }
 }
