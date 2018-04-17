@@ -21,11 +21,11 @@ public partial class _Default : System.Web.UI.Page
 
     protected void btnDonate_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("NewDonor.aspx");
     }
 
     protected void btnReturnDonor_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("ReturningDonor.aspx");
     }
 }

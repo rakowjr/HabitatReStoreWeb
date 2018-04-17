@@ -24,11 +24,11 @@
                     <li>
                         <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="#">About Us</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="#">ReStores</asp:HyperLink></li>
+                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Default.aspx">ReStores</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="#">Volunteer</asp:HyperLink></li>
+                        <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Volunteers.aspx">Volunteer</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="#">Donate</asp:HyperLink></li>
+                        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/NewDonor.aspx">Donate</asp:HyperLink></li>
                     <!--<li>
                         <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="#">ReStores</asp:HyperLink>
                     </li>
@@ -38,7 +38,10 @@
                 </ul>
                 
             </nav>
-        </header>        
+        </header> 
+        <div id="breadCrumbContainer">
+            <asp:SiteMapPath ID="SiteMapPath1" runat="server" CssClass="breadCrumb"></asp:SiteMapPath>
+        </div>
         <section id="page" class="clearfix">
             <div>
                 <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
@@ -47,6 +50,7 @@
             </div>
         </section>
         <aside id="sidebar">
+            <div style="margin-left: 50px;">
             <div class="sideBarImage">
                 <asp:Image ID="Image2" runat="server" ImageUrl="~/images/GreatStuff220x201.png" />
             </div>
@@ -55,6 +59,7 @@
             </div>
             <div class="sideBarImage">
                 <asp:Image ID="Image4" runat="server" ImageUrl="~/images/GreatCause200x179.png" />
+            </div>
             </div>
         </aside>
         <footer>

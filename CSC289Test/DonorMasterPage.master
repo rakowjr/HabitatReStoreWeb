@@ -24,32 +24,40 @@
 <li>
                         <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="#">About Us</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="#">ReStores</asp:HyperLink></li>
+                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Default.aspx">ReStores</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="#">Volunteer</asp:HyperLink></li>
+                        <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Volunteers.aspx">Volunteer</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="#">Donate</asp:HyperLink></li>
+                        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/NewDonor.aspx">Donate</asp:HyperLink></li>
                 </ul>
             </nav>
         </header>
+        <div id="breadCrumbContainer">
+            <asp:SiteMapPath ID="SiteMapPath2" runat="server" CssClass="breadCrumb"></asp:SiteMapPath>
+        </div>
         <section id="page" class="clearfix">
             <div>
                 <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">        
                 </asp:ContentPlaceHolder>
             </div>
         </section>
-        <aside id="sidBar">
-            <div class="sideBarImage">
-                <asp:Image ID="Image2" runat="server" />
+        <aside id="sideBar">
+            <div style="margin-left: 60px;">
+            <div style="margin-top: 50px;">
+                <h3>Recently Donated Items</h3>
             </div>
             <div class="sideBarImage">
-                <asp:Image ID="Image3" runat="server" />
+                <asp:Image ID="Item1" runat="server" CssClass="itemImage"/>
             </div>
             <div class="sideBarImage">
-                <asp:Image ID="Image4" runat="server" />
+                <asp:Image ID="Item2" runat="server" CssClass="itemImage" />
             </div>
             <div class="sideBarImage">
-                <asp:Image ID="Image5" runat="server" />
+                <asp:Image ID="Item3" runat="server" CssClass="itemImage" />
+            </div>
+            <div class="sideBarImage">
+                <asp:Image ID="Item4" runat="server" CssClass="itemImage" />
+            </div>
             </div>
         </aside>
         <footer>
