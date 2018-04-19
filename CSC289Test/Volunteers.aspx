@@ -14,9 +14,15 @@
             <asp:View ID="View1" runat="server">
                 <h2 style="padding: 40px 0;">Volunteer Registration</h2>
                 <table class="volunteerTable">
+                    <tr style="height: 20px;">
+                        <td></td>
+                        <td style="font-size: small;"><span style="font-size: large; color: red; vertical-align: sub;">*</span> required fields</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     <tr>
                         <td class="vtCol1"></td>
-                        <td class="vtCol2">First Name: </td>
+                        <td class="vtCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> First Name: </td>
                         <td class="vtCol3">
                             <asp:TextBox ID="tbFName" runat="server" CssClass="volTB"></asp:TextBox>
                         </td>
@@ -32,7 +38,7 @@
                     </tr>
                     <tr>
                         <td class="vtCol1"></td>
-                        <td class="vtCol2">Last Name: </td>
+                        <td class="vtCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Last Name: </td>
                         <td class="vtCol3">
                             <asp:TextBox ID="tbLName" runat="server" CssClass="volTB"></asp:TextBox>
                         </td>
@@ -43,7 +49,7 @@
                     </tr>
                     <tr>
                         <td class="vtCol1"></td>
-                        <td class="vtCol2">Gender (M/F): </td>
+                        <td class="vtCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Gender (M/F): </td>
                         <td class="vtCol3">
                             <asp:RadioButtonList ID="rBtnGender" runat="server" AutoPostBack="False" RepeatDirection="Horizontal" ValidationGroup="Volunteers" Height="24px" Width="170px" CssClass="volRadList">
                                 <asp:ListItem Value="M">Male</asp:ListItem>
@@ -65,7 +71,7 @@
                     </tr>
                     <tr>
                         <td class="vtCol1"></td>
-                        <td class="vtCol2">Date of Birth: </td>
+                        <td class="vtCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Date of Birth: </td>
                         <td class="vtCol3">
                             <span style="margin: 0 12px;">
                                 <asp:DropDownList ID="ddlMonth" runat="server">
@@ -99,7 +105,7 @@
                     </tr>
                     <tr>
                         <td class="vtCol1"></td>
-                        <td class="vtCol2">Address: </td>
+                        <td class="vtCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Address: </td>
                         <td class="vtCol3">
                             <asp:TextBox ID="tbAddress" runat="server" CssClass="volTB"></asp:TextBox>
                         </td>
@@ -115,7 +121,7 @@
                     </tr>
                     <tr>
                         <td class="vtCol1"></td>
-                        <td class="vtCol2">City: </td>
+                        <td class="vtCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> City: </td>
                         <td class="vtCol3">
                             <asp:TextBox ID="tbCity" runat="server" CssClass="volTB"></asp:TextBox>
                         </td>
@@ -125,7 +131,7 @@
                     </tr>
                     <tr>
                         <td class="vtCol1"></td>
-                        <td class="vtCol2">Zipcode: </td>
+                        <td class="vtCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Zipcode: </td>
                         <td class="vtCol3">
                             <asp:TextBox ID="tbZip" runat="server" CssClass="volTB"></asp:TextBox>
                         </td>
@@ -136,7 +142,7 @@
                     </tr>
                     <tr>
                         <td class="vtCol1"></td>
-                        <td class="vtCol2">Phone Number (no dashes): </td>
+                        <td class="vtCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Phone Number (no dashes): </td>
                         <td class="vtCol3">
                             <asp:TextBox ID="tbPhone" runat="server" CssClass="volTB"></asp:TextBox>
                         </td>

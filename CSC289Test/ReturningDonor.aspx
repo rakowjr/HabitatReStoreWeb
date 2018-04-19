@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/DonorMasterPage.master" AutoEventWireup="true" CodeFile="ReturningDonor.aspx.cs" Inherits="ReturningDonor" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ReturningDonor.aspx.cs" Inherits="ReturningDonor" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -24,8 +24,8 @@
                     <asp:Button ID="Submit" runat="server" Text="Enter" OnClick="Submit_Click" Font-Size="Medium" />
                     <br />                    
                 </div>
-                <div>
-                    <asp:Label ID="lblIdNotFound" runat="server" Visible="False"></asp:Label>
+                <div style="text-align: center; margin-top: 30px;">
+                    <asp:Label ID="lblNoEmail" runat="server" Visible="False" ForeColor="Red" Font-Size="Medium"></asp:Label>
                     <asp:Label ID="donorIdDbError" runat="server" Text=""></asp:Label>
                 </div>
             </div>
@@ -223,6 +223,8 @@
             <asp:Label ID="lblSchedDbError" runat="server"></asp:Label>
             <br />
             <asp:Label ID="imageTypeError" runat="server" ForeColor="Red" Visible="False"></asp:Label>
+            <br />
+            <asp:Label ID="lblDonorID" runat="server" Text="donorID empty"></asp:Label>
         </div>
     
 </asp:Content>

@@ -14,7 +14,7 @@ public partial class ReturningDonor : System.Web.UI.Page
 {
     private int donorID;
     private int donationID;
-    private int donationStatusID = 3; //Status_Map_ID 3 = donation/submitted
+    private int donationStatusID = 3; //donation/submitted
     private int storeID = 1;
     private bool bypassFlag = false;
     private string address;
@@ -25,8 +25,7 @@ public partial class ReturningDonor : System.Web.UI.Page
     private string startTime;
     private string endTime;
     private int completed = 0;
-
-
+        
     protected void Page_Load(object sender, EventArgs e)
     {
         
@@ -55,80 +54,65 @@ public partial class ReturningDonor : System.Web.UI.Page
     //Get DonorID
     protected void Submit_Click(object sender, EventArgs e)
     {
+        lblNoEmail.Visible = false;
         //Create new SqlConnection using the connection string from web.config
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
         //Create new Sql Statement to select donorID
-        SqlCommand cmd = new SqlCommand("SELECT Donor_ID FROM Donor WHERE Email = @email", mConn);
+        SqlCommand cmd = new SqlCommand("SELECT Donor_ID, Address, Address2, City, ZipCode FROM Donor WHERE Email = @email", mConn);        
 
         cmd.CommandType = CommandType.Text;
 
         cmd.Parameters.AddWithValue("@email", tbEmail.Text);
+
         try
         {
             using (mConn)
             {
                 mConn.Open();
-                donorID = (int)cmd.ExecuteScalar(); //return Donor_ID data
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if(reader.HasRows)
+                {
+                    while(reader.Read())
+                    {
+                        donorID = reader.GetInt32(0);
+                        lblDonorID.Text = Convert.ToString(donorID);
+                        address = reader.GetString(1);
+                        //lblDonAddr.Text = Convert.ToString(address);
+                        address2 = reader.GetString(2);
+                        //lblDonAddr2.Text = Convert.ToString(address2);
+                        city = reader.GetString(3);
+                        //lblDonCity.Text = Convert.ToString(city);
+                        zipcode = reader.GetString(4);
+                        //lblDonZip.Text = Convert.ToString(zipcode);
+                    }
+                    HttpContext.Current.Session["donorID"] = donorID;
+                    HttpContext.Current.Session["address"] = address;
+                    HttpContext.Current.Session["address2"] = address2;
+                    HttpContext.Current.Session["city"] = city;
+                    HttpContext.Current.Session["zipcode"] = zipcode;
+                    MultiView1.ActiveViewIndex = 1;
+                }
+                else
+                {
+                    lblNoEmail.Text = "Sorry - We could not find the account with that email address<br /><br />Please try a different email or call the office.";
+                    lblNoEmail.Visible = true;
+                    tbEmail.Text = String.Empty;
+                }
+                reader.Close();
                 mConn.Close();
                 cmd.Dispose();
             }
-
+            
+            
+            //lblDonorID.Text = donorID.ToString();
         }
         catch (Exception ex)
         {
-            donorIdDbError.Text = "A Donor database error has occured.<br />" + "Message: " + ex.Message;
+            donorIdDbError.Text = "A getting donor info failed. A database error has occured.<br />" + "Message: " + ex.Message;
         }
-
-        if(donorID != 0)
-        {
-            //Create new SqlConnection using the connection string from web.config
-            SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
-
-            //Create new Sql Statement to insert data into the Volunteer table
-            SqlCommand command = new SqlCommand("SELECT Address, Address2, City, ZipCode FROM Donor WHERE Donor_ID = @donorID", conn);
-
-            command.CommandType = CommandType.Text;
-
-            command.Parameters.AddWithValue("@donorID", donorID);
-
-            try
-            {
-                using (conn)
-                {
-                    conn.Open();
-
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        address = (string)reader[0];
-                        address2 = (string)reader[1];
-                        city = (string)reader[2];
-                        zipcode = (string)reader[3];
-                    }
-                    reader.Close();
-                    conn.Close();
-                    command.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                lblDonorIDerror.Text = "retrieving data from Donor table failed.<br />" + "Message: " + ex.Message;
-            }
-        }
-        else
-        {
-            lblIdNotFound.Text = "Sorry - We could not find the account with that email address<br />Please try again or call the office.";
-        }
-        //set session variables
-        HttpContext.Current.Session["donorID"] = donorID;
-        HttpContext.Current.Session["address"] = address;
-        HttpContext.Current.Session["address2"] = address2;
-        HttpContext.Current.Session["city"] = city;
-        HttpContext.Current.Session["zipcode"] = zipcode;
-        MultiView1.ActiveViewIndex = 1;
-
+        
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)

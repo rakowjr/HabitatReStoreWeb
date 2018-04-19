@@ -16,9 +16,15 @@
             <div id="donorContent">
                <h2 style="padding: 40px 0;">Donor Registration</h2>
                 <table class="donorTable">
+                    <tr style="height: 20px;">
+                        <td></td>
+                        <td style="font-size: small;"><span style="font-size: large; color: red; vertical-align: sub;">*</span> required fields</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     <tr>
                         <td class="dnCol1"></td>
-                        <td class="dnCol2">First Name: </td>
+                        <td class="dnCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> First Name: </td>
                         <td class="dnCol3">
                             <asp:textbox id="tbFName" runat="server" cssclass="dnTB"></asp:textbox>
                         </td>
@@ -36,7 +42,7 @@
                     </tr>
                     <tr>
                         <td class="dnCol1"></td>
-                        <td class="dnCol2">Last Name: </td>
+                        <td class="dnCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Last Name: </td>
                         <td class="dnCol3">
                             <asp:textbox id="tbLName" runat="server" cssclass="dnTB"></asp:textbox>
                         </td>
@@ -62,7 +68,7 @@
                         
                     <tr>
                         <td class="dnCol1"></td>
-                        <td class="dnCol2">Address: </td>
+                        <td class="dnCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Address: </td>
                         <td class="dnCol3">
                             <asp:textbox id="tbAddress" runat="server" cssclass="dnTB"></asp:textbox>
                         </td>
@@ -80,7 +86,7 @@
                     </tr>
                     <tr>
                         <td class="dnCol1"></td>
-                        <td class="dnCol2">City: </td>
+                        <td class="dnCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> City: </td>
                         <td class="dnCol3">
                             <asp:textbox id="tbCity" runat="server" cssclass="dnTB"></asp:textbox>
                         </td>
@@ -90,7 +96,7 @@
                     </tr>
                     <tr>
                         <td class="dnCol1"></td>
-                        <td class="dnCol2">Zipcode: </td>
+                        <td class="dnCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Zipcode: </td>
                         <td class="dnCol3">
                             <asp:textbox id="tbZip" runat="server" cssclass="dnTB"></asp:textbox>
                         </td>
@@ -112,7 +118,7 @@
                     </tr>
                     <tr>
                         <td class="dnCol1"></td>
-                        <td class="dnCol2">Email Address: </td>
+                        <td class="dnCol2"><span style="font-size: large; color: red; vertical-align: sub;">*</span> Email Address: </td>
                         <td class="dnCol3">
                             <asp:textbox id="tbEmail" runat="server" cssclass="dnTB"></asp:textbox>
                         </td>

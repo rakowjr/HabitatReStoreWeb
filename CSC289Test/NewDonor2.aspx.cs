@@ -19,7 +19,10 @@ public partial class NewDonor : System.Web.UI.Page
     private int donationID; //variable to store Donation_ID output
     private int storeID = 1;
     private bool bypassFlag = false;
-    //private int itemCategoryID = 12;
+    private string address;
+    private string address2;
+    private string city;
+    private string zipcode;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -33,6 +36,14 @@ public partial class NewDonor : System.Web.UI.Page
                 donorID = (int)HttpContext.Current.Session["donorID"];
             if (HttpContext.Current.Session["donationID"] != null)
                 donationID = (int)HttpContext.Current.Session["donationID"];
+            if (HttpContext.Current.Session["address"] != null)
+                address = (string)HttpContext.Current.Session["address"];
+            if (HttpContext.Current.Session["address2"] != null)
+                address2 = (string)HttpContext.Current.Session["address2"];
+            if (HttpContext.Current.Session["city"] != null)
+                city = (string)HttpContext.Current.Session["city"];
+            if (HttpContext.Current.Session["zipcode"] != null)
+                zipcode = (string)HttpContext.Current.Session["zipcode"];
         }
     }
 
@@ -342,5 +353,53 @@ public partial class NewDonor : System.Web.UI.Page
     protected void ddlEndWindow_SelectedIndexChanged(object sender, EventArgs e)
     {
         TextBox3.Text = Calendar1.SelectedDate.ToString("yyyy-MM-dd") + " " + ddlEndWindow.SelectedValue.ToString();
+    }
+
+    protected void btnCheckEmail_Click(object sender, EventArgs e)
+    {
+        SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+
+        //Create new Sql Statement to insert data into the Volunteer table
+        SqlCommand command = new SqlCommand("SELECT Donor_ID, Address, Address2, City, ZipCode FROM Donor WHERE Email = @email", conn);
+
+        command.CommandType = CommandType.Text;
+
+        command.Parameters.AddWithValue("@email", tbRetEmail.Text);
+
+        try
+        {
+            using (conn)
+            {
+                conn.Open();
+
+                SqlDataReader dReader = command.ExecuteReader();
+
+                if (dReader.HasRows)
+                {
+                    while (dReader.Read())
+                    {
+                        donorID = dReader.GetInt32(0);
+                        lblDonorID.Text = Convert.ToString(donorID);
+                        address = dReader.GetString(1);
+                        lblDonAddr.Text = Convert.ToString(address);
+                        address2 = dReader.GetString(2);
+                        lblDonAddr2.Text = Convert.ToString(address2);
+                        city = dReader.GetString(3);
+                        lblDonCity.Text = Convert.ToString(city);
+                        zipcode = dReader.GetString(4);
+                        lblDonZip.Text = Convert.ToString(zipcode);
+                    }
+                }
+                else
+                {
+                    lblNoEmail.Text = "No email found";
+                }
+                dReader.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            donorIdDbError.Text = "A getting donorID failed. database error has occured.<br />" + "Message: " + ex.Message;
+        }
     }
 }

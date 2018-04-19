@@ -11,6 +11,25 @@
     <div>
         <asp:sqldatasource runat="server" ID="ItemCategoryDs" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT [Item_Category_ID], [Description] FROM [Item_Category]"></asp:sqldatasource>
         <asp:MultiView ID="MultiView1" runat="server">
+            <asp:View ID="ReturningDonor" runat="server">
+                <asp:TextBox ID="tbRetEmail" runat="server"></asp:TextBox>
+                <asp:Button ID="btnCheckEmail" runat="server" Text="Check Email" OnClick="btnCheckEmail_Click" />
+                <br />
+                <br />
+                <asp:Label ID="lblDonorID" runat="server"></asp:Label>
+                <br />
+                <asp:Label ID="lblDonAddr" runat="server"></asp:Label>
+                <br />
+                <asp:Label ID="lblDonAddr2" runat="server"></asp:Label>
+                <br />
+                <asp:Label ID="lblDonCity" runat="server"></asp:Label>
+                <br />
+                <asp:Label ID="lblDonZip" runat="server"></asp:Label>
+                <br />
+                <asp:Label ID="lblNoEmail" runat="server"></asp:Label>
+                <br />
+                <asp:Label ID="donorIdDbError" runat="server"></asp:Label>
+            </asp:View>
             <asp:View ID="ViewDonorInfo" runat="server">
                 <div id="donorContent">
                     <h2 style="padding: 40px 0;">Donor Registration</h2>

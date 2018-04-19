@@ -136,7 +136,7 @@ nav ul, nav ol {
  }
  #breadCrumbContainer{
      height: 30px;
-     margin-left: 850px;
+     margin-left: 890px;
      margin-top: 10px;
      margin-bottom: -5px;
  }
@@ -225,12 +225,10 @@ nav ul, nav ol {
     padding-right: 15px;
 }
  
-.vtCol3 {
+.vtCol3, .dnCol3 {
     width: 260px;
 }
-.dnCol3 {
-    width: 260px;
-}
+
 .volTB, .dnTB {
     width: 230px;
     height: 24px;
