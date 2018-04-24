@@ -113,8 +113,8 @@
                             <td class="dnCol4"></td>
                         </tr>                        
                     </table>
-                    <div>
-                        <asp:button id="btnSubmit" runat="server" text="Submit" validationgroup="Donations" onclick="btnSubmit_Click" cssclass="auto-style1" />
+                    <div style="text-align: center; padding-top: 20px;">
+                        <asp:button id="btnSubmit" runat="server" text="Submit" validationgroup="Donations" onclick="btnSubmit_Click" />
                     </div>
                 </div>
             </asp:View>

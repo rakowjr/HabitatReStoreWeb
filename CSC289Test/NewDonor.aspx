@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/DonorMasterPage.master" AutoEventWireup="true" CodeFile="NewDonor.aspx.cs" Inherits="Donations" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="NewDonor.aspx.cs" Inherits="Donations" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">       
@@ -14,8 +14,7 @@
     <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="ViewDonorInfo" runat="server">
             <div id="donorContent">
-               <h2 style="padding: 40px 0;">Donor Registration</h2>
-                <table class="donorTable">
+               <h2 style="padding: 40px 0;">Donor Registration</h2>                <table class="donorTable">
                     <tr style="height: 20px;">
                         <td></td>
                         <td style="font-size: small;"><span style="font-size: large; color: red; vertical-align: sub;">*</span> required fields</td>

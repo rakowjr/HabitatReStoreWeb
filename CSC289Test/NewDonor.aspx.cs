@@ -17,7 +17,7 @@ public partial class Donations : System.Web.UI.Page
     private int donorStatusID = 2; //Status Map ID = donor/submitted
     private int donationStatusID = 3; //Status Map ID = donation/submitted
     private int donationID; //variable to store Donation_ID output
-    private int storeID = 1;
+    private int storeID;
     private bool bypassFlag = false;
     private string pickupDate;
     private string startTime;
@@ -198,6 +198,36 @@ public partial class Donations : System.Web.UI.Page
                 address2 = tbAddress2.Text;
                 city = tbCity.Text;
                 zip = tbZip.Text;
+            }
+
+            switch (zip)
+            {
+                case "27012":
+                case "27023":
+                case "27040":
+                case "27050":
+                    storeID = 3;
+                    break;
+                case "27009":
+                case "27051":
+                case "27284":
+                    storeID = 2;
+                    break;
+                case "27045":
+                case "27101":
+                case "27103":
+                case "27104":
+                case "27105":
+                case "27106":
+                case "27107":
+                case "27109":
+                case "27110":
+                case "27127":
+                    storeID = 1;
+                    break;
+                default:
+                    storeID = 1;
+                    break;
             }
 
             cmd.Parameters.AddWithValue("@Store_ID", storeID);
@@ -381,5 +411,7 @@ public partial class Donations : System.Web.UI.Page
         }
         MultiView1.ActiveViewIndex = 4;
         lblDonationRef.Text = Convert.ToString(donationID);
+        Session["donorID"] = null;
+        Session["donationID"] = null;
     }
 }
