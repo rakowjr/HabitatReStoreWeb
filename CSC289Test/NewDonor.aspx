@@ -1,7 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="NewDonor.aspx.cs" Inherits="Donations" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <style type="text/css">       
+    <style type="text/css">
+        #bodyContainer{
+            height: 850px !important;
+        }
         .btnMargin {
             margin-left: 325px;
         }       
@@ -140,6 +143,7 @@
         </asp:View>
         <asp:View ID="ViewDonationInfo" runat="server">
             <div id="donationContent">
+                <asp:Label ID="lblDonorID" runat="server" Text=""></asp:Label>
                 <h2 style="padding: 40px 0;">Donation Information</h2>
                 <div>
                     <asp:CheckBox ID="cbDiffAddr" runat="server" Text="Pick-up address is different from Donor's address" AutoPostBack="True" CssClass="volunteerCategoryCB" OnCheckedChanged="dbDiffAddr_CheckedChanged" />

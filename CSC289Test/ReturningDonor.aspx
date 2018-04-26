@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ReturningDonor.aspx.cs" Inherits="ReturningDonor" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        #bodyContainer{
+            height: 850px !important;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:SqlDataSource ID="ItemCategoryDs" runat="server" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT [Item_Category_ID], [Description] FROM [Item_Category] ORDER BY [Description]"></asp:SqlDataSource>
@@ -224,7 +229,7 @@
             <br />
             <asp:Label ID="imageTypeError" runat="server" ForeColor="Red" Visible="False"></asp:Label>
             <br />
-            <asp:Label ID="lblDonorID" runat="server" Text="donorID empty"></asp:Label>
+            <!--<asp:Label ID="lblDonorID" runat="server" Text="donorID empty"></asp:Label>-->
         </div>
     
 </asp:Content>

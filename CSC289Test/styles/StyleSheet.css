@@ -125,21 +125,33 @@ nav ul, nav ol {
     position: absolute;
     z-index: 1000;
 }
- #sidebar{
-     float: left;
-     width: 270px;
-     padding-top: 40px;
- }
- #page{
-     float: right;
-     width: 700px;
- }
- #breadCrumbContainer{
-     height: 30px;
-     margin-left: 890px;
-     margin-top: 10px;
-     margin-bottom: -5px;
- }
+#bodyContainer {
+    width: 1045px;
+    height: 1325px;
+    margin-top: -10px;
+    margin-bottom: 25px;
+    padding-top: 10px;
+    background-color: #FFF;
+    box-shadow: 5px 0 5px -5px #333, -5px 0 5px -5px #333, 0px 5px 5px #333;
+    -webkit-box-shadow: 5px 0 5px -5px #333, -5px 0 5px -5px #333, 0px 5px 5px #333;
+    -moz-box-shadow: 5px 0 5px -5px #333, -5px 0 5px -5px #333, 0px 5px 5px #333;
+}
+#sidebar {
+    float: left;
+    width: 270px;
+    padding-top: 40px;
+}
+
+#page {
+    float: right;
+    width: 700px;
+}
+#breadCrumbContainer {
+    height: 30px;
+    margin-left: 870px;
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
 .breadCrumb {
     /*margin-bottom: -55px;*/
 }

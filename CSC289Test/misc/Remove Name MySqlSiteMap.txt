@@ -1,0 +1,5 @@
+<siteMap>
+<providers>
+  <remove name="MySqlSiteMapProvider" />
+</providers>
+</siteMap>

@@ -134,10 +134,10 @@ public partial class ReturningDonor : System.Web.UI.Page
                     Byte[] bytes = binaryReader.ReadBytes((int)stream.Length); //Byte array holds image data
 
                     SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+                    
+                    SqlCommand cmdItem = new SqlCommand("usp_AddItem", con);
 
-
-                    SqlCommand cmdItem = new SqlCommand("Insert INTO Item (Donation_ID, Item_Category_ID, Donation_Image, Description) VALUES (@Donation_ID, @Item_Category_ID, @Donation_Image, @Description)", con);
-                    cmdItem.CommandType = CommandType.Text;
+                    cmdItem.CommandType = CommandType.StoredProcedure;
 
                     cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
                     cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
@@ -169,10 +169,10 @@ public partial class ReturningDonor : System.Web.UI.Page
             else
             {
                 SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+                
+                SqlCommand cmdItem = new SqlCommand("usp_AddItem", con);
 
-
-                SqlCommand cmdItem = new SqlCommand("Insert INTO Item (Donation_ID, Item_Category_ID, Description) VALUES (@Donation_ID, @Item_Category_ID, @Description)", con);
-                cmdItem.CommandType = CommandType.Text;
+                cmdItem.CommandType = CommandType.StoredProcedure;
 
                 cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
                 cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
@@ -197,15 +197,14 @@ public partial class ReturningDonor : System.Web.UI.Page
         } //A donation is already started
         else //No donation has yet been made
         {
-            //insert information into Donation table and output Donation_ID
             //Create new SqlConnection using the connection string from web.config
             SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
-            //Create new Sql Statement to insert data into the Volunteer table
-            SqlCommand cmd = new SqlCommand("Insert INTO Donation (Store_ID, Donor_ID, Status_Map_ID, Address, Address2, City, State, ZipCode, Bypass_Flag) OUTPUT INSERTED.Donation_ID VALUES (@Store_ID, @Donor_ID, @Status_Map_ID, @Address, @Address2, @City, @State, @ZipCode, @Bypass_Flag)", mConn);
+            //Create new Sql Statement to insert data into the Volunteer table            
+            SqlCommand cmd = new SqlCommand("usp_AddDonation", mConn);
 
             //Define command type
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.StoredProcedure;
 
             if (PanelAltAddr.Visible == true)
             {
@@ -213,53 +212,24 @@ public partial class ReturningDonor : System.Web.UI.Page
                 address2 = tbAltAddress2.Text;
                 city = tbAltCity.Text;
                 zipcode = tbAltZip.Text;
-            }
-            switch (zipcode)
-            {
-                case "27012":
-                case "27023":
-                case "27040":
-                case "27050":
-                    storeID = 3;
-                    break;
-                case "27009":
-                case "27051":
-                case "27284":
-                    storeID = 2;
-                    break;
-                case "27045":
-                case "27101":
-                case "27103":
-                case "27104":
-                case "27105":
-                case "27106":
-                case "27107":
-                case "27109":
-                case "27110":
-                case "27127":
-                    storeID = 1;
-                    break;
-                default:
-                    storeID = 1;
-                    break;
-            }
-
-            cmd.Parameters.AddWithValue("@Store_ID", storeID);
+            }            
+            
             cmd.Parameters.AddWithValue("@Donor_ID", donorID);
-            cmd.Parameters.AddWithValue("@Status_Map_ID", donationStatusID); // 3 = donation/submitted
             cmd.Parameters.AddWithValue("@Address", address);
             cmd.Parameters.AddWithValue("@Address2", address2);
             cmd.Parameters.AddWithValue("@City", city);
-            cmd.Parameters.AddWithValue("@State", "NC");
             cmd.Parameters.AddWithValue("@ZipCode", zipcode);
-            cmd.Parameters.AddWithValue("@Bypass_Flag", bypassFlag);
 
             try
             {
                 using (mConn)
                 {
                     mConn.Open();
-                    donationID = (int)cmd.ExecuteScalar(); //return Donation_ID data
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        donationID = Convert.ToInt32(reader[0]);
+                    }
                     mConn.Close();
                     cmd.Dispose();
                 }
@@ -287,9 +257,9 @@ public partial class ReturningDonor : System.Web.UI.Page
 
                     SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
+                    SqlCommand cmdItem = new SqlCommand("usp_AddItem", con);
 
-                    SqlCommand cmdItem = new SqlCommand("Insert INTO Item (Donation_ID, Item_Category_ID, Donation_Image, Description) VALUES (@Donation_ID, @Item_Category_ID, @Donation_Image, @Description)", con);
-                    cmdItem.CommandType = CommandType.Text;
+                    cmdItem.CommandType = CommandType.StoredProcedure;
 
                     cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
                     cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
@@ -322,8 +292,9 @@ public partial class ReturningDonor : System.Web.UI.Page
             {
                 SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
-                SqlCommand cmdItem = new SqlCommand("Insert INTO Item (Donation_ID, Item_Category_ID, Description) VALUES (@Donation_ID, @Item_Category_ID, @Description)", con);
-                cmdItem.CommandType = CommandType.Text;
+                SqlCommand cmdItem = new SqlCommand("usp_AddItem", con);
+
+                cmdItem.CommandType = CommandType.StoredProcedure;
 
                 cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
                 cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);

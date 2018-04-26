@@ -39,34 +39,37 @@
                 
             </nav>
         </header> 
-        <div id="breadCrumbContainer">
-            <asp:SiteMapPath ID="SiteMapPath1" runat="server" CssClass="breadCrumb"></asp:SiteMapPath>
-        </div>
-        <section id="page" class="clearfix">
-            <div>
-                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        <div id="bodyContainer">
+            <div id="breadCrumbContainer">
+                <asp:SiteMapPath ID="SiteMapPath1" runat="server" CssClass="breadCrumb"></asp:SiteMapPath>
+            </div>
         
-                </asp:ContentPlaceHolder>
-            </div>
-        </section>
-        <aside id="sidebar">
-            <div style="margin-left: 50px;">
-            <div class="sideBarImage">
-                <asp:Image ID="Image2" runat="server" ImageUrl="~/images/GreatStuff220x201.png" />
-            </div>
-            <div class="sideBarImage">
-                <asp:Image ID="Image3" runat="server" ImageUrl="~/images/GreatPrices200x175.png" />
-            </div>
-            <div class="sideBarImage">
-                <asp:Image ID="Image4" runat="server" ImageUrl="~/images/GreatCause200x179.png" />
-            </div>
-            </div>
-        </aside>
-        <footer>
-            <div>
+            <section id="page" class="clearfix">
+                <div>
+                    <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+                    </asp:ContentPlaceHolder>
+                </div>
+            </section>
+            <aside id="sidebar">
+                <div style="margin-left: 50px;">
+                <div class="sideBarImage">
+                    <asp:Image ID="Image2" runat="server" ImageUrl="~/images/GreatStuff220x201.png" />
+                </div>
+                <div class="sideBarImage">
+                    <asp:Image ID="Image3" runat="server" ImageUrl="~/images/GreatPrices200x175.png" />
+                </div>
+                <div class="sideBarImage">
+                    <asp:Image ID="Image4" runat="server" ImageUrl="~/images/GreatCause200x179.png" />
+                </div>
+                </div>
+            </aside>
+            <footer>
+                <div>
 
-            </div>
-        </footer>
+                </div>
+            </footer>
+       </div>
     </div>
     </form>
 </body>

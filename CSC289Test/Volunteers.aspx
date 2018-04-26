@@ -1,10 +1,18 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Volunteers.aspx.cs" Inherits="Volunteers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <style type="text/css">       
+    <style type="text/css">
+        #bodyContainer{
+            height: 910px !important;
+        }
         .auto-style1 {
             margin-left: 325px;
-        }       
+        } 
+        .volPhoto{
+            border: 1px solid #ddd;
+            padding: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,33);
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">  
@@ -171,19 +179,24 @@
                 <div style="height: 40px;"></div>
             </asp:View>
             <asp:View ID="View2" runat="server">
-                <asp:SqlDataSource ID="VolCategoryDS" runat="server" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT [Category_Type_ID], [Description] FROM [Volunteer_Category_Type]"></asp:SqlDataSource>
-                <h3 style="padding-top: 30px;">Please select your volunteering preferences</h3>
-                <div>
-                    <asp:CheckBoxList ID="cblVolCategory" runat="server" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="30" CssClass="volunteerCategoryCB" DataSourceID="VolCategoryDS" DataTextField="Description" DataValueField="Category_Type_ID" RepeatColumns="2"></asp:CheckBoxList>
-                </div>
-                <div>
-                    <asp:Button ID="volCatSubmit" runat="server" Text="Submit" OnClick="volCatSubmit_Click" CssClass="auto-style1" />
+                <div style="margin-top: 80px;">
+                    <asp:SqlDataSource ID="VolCategoryDS" runat="server" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT [Category_Type_ID], [Description] FROM [Volunteer_Category_Type]"></asp:SqlDataSource>
+                    <h3 style="padding-top: 30px;">Please select your volunteering preferences</h3>
+                    <div>
+                        <asp:CheckBoxList ID="cblVolCategory" runat="server" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="30" CssClass="volunteerCategoryCB" DataSourceID="VolCategoryDS" DataTextField="Description" DataValueField="Category_Type_ID" RepeatColumns="2"></asp:CheckBoxList>
+                    </div>
+                    <div>
+                        <asp:Button ID="volCatSubmit" runat="server" Text="Submit" OnClick="volCatSubmit_Click" CssClass="auto-style1" />
+                    </div>
                 </div>
             </asp:View>
             <asp:View ID="View3" runat="server">
-                <div>
+                <div style="margin-top: 80px;">
                     <h2>Thank You!</h2>
-                    <p style="text-align:center;">A Habitat representative will contact you to schedule your volunteering activity</p>
+                    <h4 style="text-align:center; margin-top: 35px; margin-bottom: 55px;">Welcome to our group!<br /><br />A Habitat representative will contact you to schedule your volunteering activity</h4>                    
+                </div>
+                <div style="margin-left: 200px;">
+                    <img alt="" src="images/volunteers-300x228.jpg" class="volPhoto;"/>
                 </div>
             </asp:View>
         </asp:MultiView>

@@ -40,18 +40,18 @@ public partial class Donations : System.Web.UI.Page
         }
     }
 
+    //Insert information into Donor table and output Donor_ID
     protected void btnSubmitDonor_Click(object sender, EventArgs e)
-    {
-        //Insert information into Donor table and output Donor_ID       
+    {               
 
         //Create new SqlConnection using the connection string from web.config
-        SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+        SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);        
 
-        //Create new Sql Statement to insert data into the Donor table
-        SqlCommand cmd = new SqlCommand("Insert INTO Donor (Status_Map_ID, Last_Name, First_Name, Middle_Name, Gender, Address, Address2, City, State, ZipCode, Phone, Email) OUTPUT INSERTED.Donor_ID VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender,  @Address, @Address2, @City, @State, @ZipCode, @Phone, @Email)", mConn);
+        //Create Sql Command to use Stored Procedure usp_AddDonor
+        SqlCommand cmd = new SqlCommand("usp_AddDonor", mConn);
 
         //Define command type
-        cmd.CommandType = CommandType.Text;
+        cmd.CommandType = CommandType.StoredProcedure;
 
         //provide values from page
         cmd.Parameters.AddWithValue("@Status_Map_ID", donorStatusID);
@@ -71,8 +71,13 @@ public partial class Donations : System.Web.UI.Page
         {
             using (mConn)
             {
-                mConn.Open();
-                donorID = (int)cmd.ExecuteScalar(); //return Donor_ID data
+                mConn.Open(); 
+                SqlDataReader reader = cmd.ExecuteReader(); //return Donor_ID data
+                while (reader.Read())
+                {
+                    donorID = Convert.ToInt32(reader[0]);
+                }
+                lblDonorID.Text = Convert.ToString(donorID); //verify donorID retreival
                 mConn.Close();
                 cmd.Dispose();
             }
@@ -98,7 +103,7 @@ public partial class Donations : System.Web.UI.Page
             string fileExtension = Path.GetExtension(newFilename);
             int newFileSize = newPostedFile.ContentLength;
 
-            if (FileUpload1.HasFile == true)
+            if (FileUpload1.HasFile == true) //Donor is uploading image
             {
                 if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif" || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
                 {
@@ -107,10 +112,10 @@ public partial class Donations : System.Web.UI.Page
                     Byte[] bytes = binaryReader.ReadBytes((int)stream.Length); //Byte array holds image data
 
                     SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
-
-
-                    SqlCommand cmdItem = new SqlCommand("Insert INTO Item (Donation_ID, Item_Category_ID, Donation_Image, Description) VALUES (@Donation_ID, @Item_Category_ID, @Donation_Image, @Description)", con);
-                    cmdItem.CommandType = CommandType.Text;
+                    
+                    SqlCommand cmdItem = new SqlCommand("usp_AddItem", con);
+                    
+                    cmdItem.CommandType = CommandType.StoredProcedure;
 
                     cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
                     cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
@@ -139,13 +144,13 @@ public partial class Donations : System.Web.UI.Page
                     imageTypeError.Text = "Only images (.jpg, .png, .gif and .bmp) can be uploaded";
                 }
             }
-            else
+            else //Donor is not uploading image
             {
                 SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+                
+                SqlCommand cmdItem = new SqlCommand("usp_AddItem", con);
 
-
-                SqlCommand cmdItem = new SqlCommand("Insert INTO Item (Donation_ID, Item_Category_ID, Description) VALUES (@Donation_ID, @Item_Category_ID, @Description)", con);
-                cmdItem.CommandType = CommandType.Text;
+                cmdItem.CommandType = CommandType.StoredProcedure;
 
                 cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
                 cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
@@ -170,15 +175,14 @@ public partial class Donations : System.Web.UI.Page
         }//A donation is already started
         else //no donation made yet
         {
-            //insert information into Donation table and output Donation_ID
             //Create new SqlConnection using the connection string from web.config
             SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
-            //Create new Sql Statement to insert data into the Volunteer table
-            SqlCommand cmd = new SqlCommand("Insert INTO Donation (Store_ID, Donor_ID, Status_Map_ID, Address, Address2, City, State, ZipCode, Bypass_Flag) OUTPUT INSERTED.Donation_ID VALUES (@Store_ID, @Donor_ID, @Status_Map_ID, @Address, @Address2, @City, @State, @ZipCode, @Bypass_Flag)", mConn);
+            //Create new Sql Statement to insert data into the Volunteer table            
+            SqlCommand cmd = new SqlCommand("usp_AddDonation", mConn);
 
             //Define command type
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.StoredProcedure;
 
             string address;
             string address2;
@@ -199,53 +203,23 @@ public partial class Donations : System.Web.UI.Page
                 city = tbCity.Text;
                 zip = tbZip.Text;
             }
-
-            switch (zip)
-            {
-                case "27012":
-                case "27023":
-                case "27040":
-                case "27050":
-                    storeID = 3;
-                    break;
-                case "27009":
-                case "27051":
-                case "27284":
-                    storeID = 2;
-                    break;
-                case "27045":
-                case "27101":
-                case "27103":
-                case "27104":
-                case "27105":
-                case "27106":
-                case "27107":
-                case "27109":
-                case "27110":
-                case "27127":
-                    storeID = 1;
-                    break;
-                default:
-                    storeID = 1;
-                    break;
-            }
-
-            cmd.Parameters.AddWithValue("@Store_ID", storeID);
+            
             cmd.Parameters.AddWithValue("@Donor_ID", donorID);
-            cmd.Parameters.AddWithValue("@Status_Map_ID", donationStatusID); // 3 = donation/submitted
             cmd.Parameters.AddWithValue("@Address", address);
             cmd.Parameters.AddWithValue("@Address2", address2);
             cmd.Parameters.AddWithValue("@City", city);
-            cmd.Parameters.AddWithValue("@State", "NC");
             cmd.Parameters.AddWithValue("@ZipCode", zip);
-            cmd.Parameters.AddWithValue("@Bypass_Flag", bypassFlag);
 
             try
             {
                 using (mConn)
                 {
                     mConn.Open();
-                    donationID = (int)cmd.ExecuteScalar(); //return Donation_ID data
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        donationID = Convert.ToInt32(reader[0]);
+                    }
                     mConn.Close();
                     cmd.Dispose();
                 }
@@ -272,10 +246,10 @@ public partial class Donations : System.Web.UI.Page
                     Byte[] bytes = binaryReader.ReadBytes((int)stream.Length); //Byte array holds image data
 
                     SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
-
-
-                    SqlCommand cmdItem = new SqlCommand("Insert INTO Item (Donation_ID, Item_Category_ID, Donation_Image, Description) VALUES (@Donation_ID, @Item_Category_ID, @Donation_Image, @Description)", con);
-                    cmdItem.CommandType = CommandType.Text;
+                    
+                    SqlCommand cmdItem = new SqlCommand("usp_AddItem", con);
+                    
+                    cmdItem.CommandType = CommandType.StoredProcedure;
 
                     cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
                     cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);
@@ -307,10 +281,10 @@ public partial class Donations : System.Web.UI.Page
             else //user has not chosen an image
             {
                 SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
+                
+                SqlCommand cmdItem = new SqlCommand("usp_AddItem", con);
 
-
-                SqlCommand cmdItem = new SqlCommand("Insert INTO Item (Donation_ID, Item_Category_ID, Description) VALUES (@Donation_ID, @Item_Category_ID, @Description)", con);
-                cmdItem.CommandType = CommandType.Text;
+                cmdItem.CommandType = CommandType.StoredProcedure;
 
                 cmdItem.Parameters.AddWithValue("@Donation_ID", donationID);
                 cmdItem.Parameters.AddWithValue("@Item_Category_ID", ddlItemCategory.SelectedValue);

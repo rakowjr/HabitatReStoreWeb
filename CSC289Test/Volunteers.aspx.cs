@@ -63,10 +63,10 @@ public partial class Volunteers : System.Web.UI.Page
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
         //Create new Sql Statement to insert data into the Volunteer table
-        SqlCommand cmd = new SqlCommand("Insert INTO Volunteer (Status_Map_ID,Last_Name, First_Name, Middle_Name, Gender, DOB, SSN, Address, Address2, City, State, Zip_Code, Phone, Email) OUTPUT INSERTED.Volunteer_ID VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender, @DOB, @SSN, @Address, @Address2, @City, @State, @Zip_Code, @Phone, @Email)", mConn);
-
+        //SqlCommand cmd = new SqlCommand("Insert INTO Volunteer (Status_Map_ID,Last_Name, First_Name, Middle_Name, Gender, DOB, SSN, Address, Address2, City, State, Zip_Code, Phone, Email) OUTPUT INSERTED.Volunteer_ID VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender, @DOB, @SSN, @Address, @Address2, @City, @State, @Zip_Code, @Phone, @Email)", mConn);
+        SqlCommand cmd = new SqlCommand("usp_AddVolunteer", mConn);
         //Define command type
-        cmd.CommandType = CommandType.Text;
+        cmd.CommandType = CommandType.StoredProcedure;
 
         //provide values from page
         cmd.Parameters.AddWithValue("@Status_Map_ID", volunteerStatusID);
@@ -89,8 +89,14 @@ public partial class Volunteers : System.Web.UI.Page
             using (mConn)
             {
                 mConn.Open();
-                volunteerID = (int)cmd.ExecuteScalar();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    volunteerID = Convert.ToInt32(reader[0]);
+                }
+                //volunteerID = (int)cmd.ExecuteScalar();
                 mConn.Close();
+                cmd.Dispose();
             }
 
         }
