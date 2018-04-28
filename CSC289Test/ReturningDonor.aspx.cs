@@ -318,7 +318,7 @@ public partial class ReturningDonor : System.Web.UI.Page
             } //user has not chosen an image            
         } //No donation has yet been made
 
-        rbCategoryList.ClearSelection();
+        
         tbDnDesc.Text = "";
         MultiView1.ActiveViewIndex = 2;        
     }
@@ -388,7 +388,7 @@ public partial class ReturningDonor : System.Web.UI.Page
             lblSchedDbError.Text = "A Schedule database error has occurred.< br /> " + "Message: " + ex.Message;
         }
         MultiView1.ActiveViewIndex = 4;
-        lblDonationRef.Text = Convert.ToString(donationID);
+        lblDonationRef.Text = Convert.ToString(donationID);        
         Session["donorID"] = null;
         Session["donationID"] = null;
     }

@@ -5,6 +5,22 @@
         #bodyContainer{
             height: 850px !important;
         }
+        
+        .printImage {
+            vertical-align: middle;
+        }
+        .printText {
+            font-size: medium;
+            letter-spacing: .2em;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            font-variant: small-caps;
+        }
+        .printDIV {
+            margin-bottom: 35px;
+            text-align: right;
+            padding-right: 40px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -37,64 +53,62 @@
         </asp:View>
         <asp:View ID="ViewDonationInfo" runat="server">
                 <div id ="donationContent">
-                    <h2 style="padding: 40px 0;">Donation Information</h2>
+                    <h2 style="padding: 35px 0;">Donation Information</h2>
                     <div>
-                        <asp:CheckBox ID="cbDiffAddr" runat="server" Text="Pick-up address is different from Donor's address" AutoPostBack="True" OnCheckedChanged="cbDiffAddr_CheckedChanged" />
+                        <asp:CheckBox ID="cbDiffAddr" runat="server" Text="Pick-up address is different from Donor's address" AutoPostBack="True" OnCheckedChanged="cbDiffAddr_CheckedChanged" CssClass="altAddressCheckbox" Height="30px" />
                         <asp:Panel ID="PanelAltAddr" runat="server" Visible="False">
-                            <table class="donorTable">
+                            <table class="altAddressTable">
                                 <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">Address: </td>
-                            <td class="dnCol3">
-                                <asp:textbox id="tbAltAddress" runat="server" cssclass="dnTB"></asp:textbox>
-                            </td>
-                            <td class="vtCol4">
-                                <asp:requiredfieldvalidator id="Requiredfieldvalidator1" runat="server" errormessage="Address missing" validationgroup="AltAddress" controltovalidate="tbAltAddress" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">Address 2: </td>
-                            <td class="dnCol3">
-                                <asp:textbox id="tbAltAddress2" runat="server" cssclass="dnTB"></asp:textbox>
-                            </td>
-                            <td class="dnCol4"></td>
-                        </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">City: </td>
-                            <td class="dnCol3">
-                                <asp:textbox id="tbAltCity" runat="server" cssclass="dnTB"></asp:textbox>
-                            </td>
-                            <td class="dnCol4">
-                                <asp:requiredfieldvalidator id="Requiredfieldvalidator2" runat="server" errormessage="City missing" validationgroup="AltAddress" controltovalidate="tbAltCity" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="dnCol1"></td>
-                            <td class="dnCol2">Zipcode: </td>
-                            <td class="dnCol3">
-                                <asp:textbox id="tbAltZip" runat="server" cssclass="dnTB"></asp:textbox>
-                            </td>
-                            <td class="vtCol4">
-                                <asp:requiredfieldvalidator id="Requiredfieldvalidator3" runat="server" errormessage="Zip Code missing" validationgroup="AltAddress" controltovalidate="tbAltZip" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
-                                <asp:regularexpressionvalidator id="Regularexpressionvalidator1" runat="server" controltovalidate="tbAltZip" cssclass="volExpr" errormessage="Incorrect Zipcode Format" forecolor="Red" validationexpression="\d{5}" validationgroup="AltAddress">*</asp:regularexpressionvalidator>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan ="4">
-                                <asp:ValidationSummary ID="ValAltAddress" runat="server" ValidationGroup="AltAddress" ForeColor="Red" />
-                            </td>
-                        </tr>
+                                    <td></td>
+                                    <td class="dnCol2" style="width: 150px;">Address: </td>
+                                    <td class="dnCol3">
+                                        <asp:textbox id="tbAltAddress" runat="server" cssclass="dnTB"></asp:textbox>
+                                    </td>
+                                    <td class="vtCol4">
+                                        <asp:requiredfieldvalidator id="Requiredfieldvalidator1" runat="server" errormessage="Address missing" validationgroup="AltAddress" controltovalidate="tbAltAddress" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
+                                    </td>                                                                       
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="dnCol2" style="width: 150px;">Address 2: </td>
+                                    <td class="dnCol3">
+                                        <asp:textbox id="tbAltAddress2" runat="server" cssclass="dnTB"></asp:textbox>
+                                    </td>
+                                    <td class="dnCol4"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="dnCol2" style="width: 150px;">City: </td>
+                                    <td class="dnCol3">
+                                        <asp:textbox id="tbAltCity" runat="server" cssclass="dnTB"></asp:textbox>
+                                    </td>
+                                    <td class="dnCol4">
+                                        <asp:requiredfieldvalidator id="Requiredfieldvalidator2" runat="server" errormessage="City missing" validationgroup="AltAddress" controltovalidate="tbAltCity" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="dnCol2" style="width: 150px;">Zipcode: </td>
+                                    <td class="dnCol3">
+                                        <asp:textbox id="tbAltZip" runat="server" cssclass="dnTB"></asp:textbox>
+                                    </td>
+                                    <td class="vtCol4">
+                                        <asp:requiredfieldvalidator id="Requiredfieldvalidator3" runat="server" errormessage="Zip Code missing" validationgroup="AltAddress" controltovalidate="tbAltZip" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
+                                        <asp:regularexpressionvalidator id="Regularexpressionvalidator1" runat="server" controltovalidate="tbAltZip" cssclass="volExpr" errormessage="Incorrect Zipcode Format" forecolor="Red" validationexpression="\d{5}" validationgroup="AltAddress">*</asp:regularexpressionvalidator>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan ="4">
+                                        <asp:ValidationSummary ID="ValAltAddress" runat="server" ValidationGroup="AltAddress" ForeColor="Red" />
+                                    </td>
+                                </tr>           
                             </table>
                         </asp:Panel>
                     </div>
-                    <div style="margin-left: 15px; margin-top: 25px;">
+                    <div class="categoryDIV">
                         <h3>Choose a donation category</h3>
-                        <!--<asp:RadioButtonList ID="rbCategoryList" runat="server" DataSourceID="ItemCategoryDs" DataTextField="Description" DataValueField="Item_Category_ID" RepeatColumns="4" RepeatDirection="Horizontal" CellSpacing="1" CssClass="itemCategoryList"></asp:RadioButtonList>-->
-                        <br />
                     </div>
-                    <div style="text-align: center; margin-bottom: 25px;">
+                    <div class="categoryDIV">
                         <asp:DropDownList ID="ddlItemCategory" runat="server" DataSourceID="ItemCategoryDs" DataTextField="Description" DataValueField="Item_Category_ID" Font-Size="Medium" Height="25px" Width="200px"></asp:DropDownList>
                     </div>
                     <table class="donorTable">                        
@@ -207,14 +221,71 @@
                 </div>
             </asp:View>
             <asp:View ID="ViewDonationComplete" runat="server">
-                <div style="text-align: center; padding-top: 125px;">
-                    <h3>Thank you for your donation.</h3>
+                <div style="text-align: center; padding-top: 40px;">
+                    <div class="printDIV">
+                        <asp:ImageButton ID="btnPrint" runat="server" OnClientClick="javascript:window.print();" CssClass="printImage" ImageUrl="~/images/print.png" /><span class="printText">print</span>
+                    </div>
+                    <h2>Thank you for your donation.</h2>
                     <p style="margin-top:25px;">Your donation reference number is: <asp:Label runat="server" ID="lblDonationRef"></asp:Label></p>
-                    <p style="margin-top:25px;">If you have any questions, please refer to this number when calling.</p>
-                    <p style="margin-top:25px;">A representative will contact you with the date scheduled for your pick-up</p>
+                    <asp:SqlDataSource ID="SqlDataSourceSummary" runat="server" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT Donation.Donation_ID, Donation.Donor_ID, Donor.First_Name, Donor.Last_Name, Donation.Address, Donation.Address2, Donation.City, Item_Category.Description, Item.Description AS Expr1, Donation_PickUp_Schedule.PickUp_Window_Start, Donation_PickUp_Schedule.PickUp_Window_End, Donation_PickUp_Schedule.Special_Instructions, Donation.Store_ID, Store.Name, Store.Phone FROM Donation INNER JOIN Donor ON Donation.Donor_ID = Donor.Donor_ID INNER JOIN Item ON Donation.Donation_ID = Item.Donation_ID INNER JOIN Item_Category ON Item.Item_Category_ID = Item_Category.Item_Category_ID INNER JOIN Donation_PickUp_Schedule ON Donation.Donation_ID = Donation_PickUp_Schedule.Donation_ID INNER JOIN Store ON Donation.Store_ID = Store.Store_ID WHERE (Donation.Donation_ID = @donationID)">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="lblDonationRef" Name="donationID" PropertyName="Text" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
+                    <p style="margin-top:25px;">
+                        <asp:DetailsView ID="dvDonorInfo" runat="server" AutoGenerateRows="False" DataKeyNames="Donation_ID" DataSourceID="SqlDataSourceSummary" Width="450px" Gridlines="None">
+                            <FieldHeaderStyle CssClass="alignRight" Font-Bold="True" />
+                            <Fields>
+                                <asp:BoundField DataField="Donation_ID" HeaderText="Donation_ID" InsertVisible="False" ReadOnly="True" SortExpression="Donation_ID" Visible="False" />
+                                <asp:BoundField DataField="Donor_ID" HeaderText="Donor_ID" SortExpression="Donor_ID" Visible="False" />
+                                <asp:BoundField DataField="First_Name" HeaderText="First Name : " SortExpression="First_Name" />
+                                <asp:BoundField DataField="Last_Name" HeaderText="Last Name : " SortExpression="Last_Name" />
+                                <asp:BoundField DataField="Address" HeaderText="Address : " SortExpression="Address" />
+                                <asp:BoundField DataField="Address2" HeaderText="Address2 : " SortExpression="Address2" />
+                                <asp:BoundField DataField="City" HeaderText="City : " SortExpression="City" />
+                                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" Visible="False" />
+                                <asp:BoundField DataField="Expr1" HeaderText="Expr1" SortExpression="Expr1" Visible="False" />
+                                <asp:BoundField DataField="PickUp_Window_Start" HeaderText="PickUp Start Time : " SortExpression="PickUp_Window_Start" />
+                                <asp:BoundField DataField="PickUp_Window_End" HeaderText="PickUp End Time : " SortExpression="PickUp_Window_End" />
+                                <asp:BoundField DataField="Special_Instructions" HeaderText="Special Instructions :" SortExpression="Special_Instructions" />
+                                <asp:BoundField DataField="Store_ID" HeaderText="Store_ID" SortExpression="Store_ID" Visible="False" />
+                                <asp:BoundField DataField="Name" HeaderText="Store Name : " SortExpression="Name" />
+                                <asp:BoundField DataField="Phone" HeaderText="Store Phone Number : " SortExpression="Phone" />
+                            </Fields>
+                            <HeaderStyle Font-Bold="False" />
+                            <RowStyle CssClass="alignLeft" />
+                        </asp:DetailsView>
+                    </p>
+                    <p style="margin-top:25px;">
+                        <asp:GridView ID="gvDonationSummary" runat="server" AutoGenerateColumns="False" DataKeyNames="Donation_ID" DataSourceID="SqlDataSourceSummary" Width="386px" Gridlines="None">
+                            <Columns>
+                                <asp:BoundField DataField="Donation_ID" HeaderText="Donation_ID" InsertVisible="False" ReadOnly="True" SortExpression="Donation_ID" Visible="False" />
+                                <asp:BoundField DataField="Donor_ID" HeaderText="Donor_ID" SortExpression="Donor_ID" Visible="False" />
+                                <asp:BoundField DataField="First_Name" HeaderText="First_Name" SortExpression="First_Name" Visible="False" />
+                                <asp:BoundField DataField="Last_Name" HeaderText="Last_Name" SortExpression="Last_Name" Visible="False" />
+                                <asp:BoundField DataField="Address" HeaderText="Address" SortExpression="Address" Visible="False" />
+                                <asp:BoundField DataField="Address2" HeaderText="Address2" SortExpression="Address2" Visible="False" />
+                                <asp:BoundField DataField="City" HeaderText="City" SortExpression="Description" Visible="False" />
+                                <asp:BoundField DataField="Description" HeaderText="Donation Category" SortExpression="Description" >
+                                <HeaderStyle Font-Underline="True" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Expr1" HeaderText="Item Description" SortExpression="Expr1" >
+                                <HeaderStyle Font-Underline="True" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PickUp_Window_Start" HeaderText="PickUp_Window_Start" SortExpression="PickUp_Window_Start" Visible="False" />
+                                <asp:BoundField DataField="PickUp_Window_End" HeaderText="PickUp_Window_End" SortExpression="PickUp_Window_End" Visible="False" />
+                                <asp:BoundField DataField="Special_Instructions" HeaderText="Special_Instructions" SortExpression="Special_Instructions" Visible="False" />
+                                <asp:BoundField DataField="Store_ID" HeaderText="Store_ID" SortExpression="Store_ID" Visible="False" />
+                                <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" Visible="False" />
+                                <asp:BoundField DataField="Phone" HeaderText="Phone" SortExpression="Phone" Visible="False" />
+                            </Columns>
+                        </asp:GridView>
+                    </p>
+                    <p style="margin-top:25px;">If you have any questions, please refer to the reference number when calling.</p>
+                    <p style="margin-top:25px;">A representative will contact you prior to the date of your pick-up</p>
                 </div>
-                
-            </asp:View>
+                    
+            </asp:View>        
         </asp:MultiView>
         <div>
             <asp:label runat="server" id="lblDonorDbError"></asp:label>

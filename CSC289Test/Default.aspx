@@ -10,7 +10,7 @@
         <h1>ReStores</h1>
         <p>
             <strong>Visit our Habitat for Humanity ReStores Serving Forsyth County and Stokes County!</strong>
-            <br/>
+            <br/>                                                                    
             <br />
             Habitat ReStores are home improvement stores that accept small and large donations of new or 
             gently used furniture, appliances, housewares, building materials and more. Proceeds from the 
