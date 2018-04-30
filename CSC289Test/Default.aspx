@@ -18,7 +18,7 @@
             
             <br />
         </p>
-        <h6>Donate</h6>
+        <h6 id="dlink">Donate</h6>
         <img alt="" src="images/employee-unloading-wicker-chair_Stock-300x199.jpg" class="donateImg" />
         <p>            
             The ReStores accept donations of new and 
@@ -39,7 +39,7 @@
             <br />
             <br />
             <span>
-                &nbsp;Click the appropriate button to make on online request for a donation pickup. 
+                &nbsp;Click the appropriate button to make an online request for a donation pickup. 
             </span>           
         </p>
         <h6>Volunteer</h6>
@@ -56,12 +56,8 @@
             parent guardian while they volunteer. Both individuals and groups are welcome.
         </p>
         <p>
-            <asp:Button ID="btnVolunteer" runat="server" OnClick="btnVolunteer_Click" Text="I Want To Volunteer" />
-&nbsp;Click here to begin volunteer registration</p>
-            
-        
-        
-
+            <asp:Button ID="btnVolunteer" runat="server" OnClick="btnVolunteer_Click" Text="I Want To Volunteer" />&nbsp;Click here to begin volunteer registration
+        </p>
     </div>
 </asp:Content>
 

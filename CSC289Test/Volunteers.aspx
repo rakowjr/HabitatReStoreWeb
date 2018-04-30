@@ -5,7 +5,7 @@
         #bodyContainer{
             height: 910px !important;
         }
-        .auto-style1 {
+        .buttonPosition {
             margin-left: 325px;
         } 
         .volPhoto{
@@ -172,8 +172,7 @@
                     </tr>            
                 </table>
                 <div>
-                    <asp:Button ID="btnSubmit" runat="server" Text="Next" ValidationGroup="Volunteers" OnClick="btnSubmit_Click" CssClass="auto-style1" />
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Validation Check" ValidationGroup="Volunteers" Visible="False" />
+                    <asp:Button ID="btnSubmit" runat="server" Text="Next" ValidationGroup="Volunteers" OnClick="btnSubmit_Click" CssClass="buttonPosition" />                    
                 </div>
                 
                 <div style="height: 40px;"></div>
@@ -182,11 +181,11 @@
                 <div style="margin-top: 80px;">
                     <asp:SqlDataSource ID="VolCategoryDS" runat="server" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT [Category_Type_ID], [Description] FROM [Volunteer_Category_Type]"></asp:SqlDataSource>
                     <h3 style="padding-top: 30px;">Please select your volunteering preferences</h3>
-                    <div>
+                    <div style="margin-left: 70px;">
                         <asp:CheckBoxList ID="cblVolCategory" runat="server" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="30" CssClass="volunteerCategoryCB" DataSourceID="VolCategoryDS" DataTextField="Description" DataValueField="Category_Type_ID" RepeatColumns="2"></asp:CheckBoxList>
                     </div>
                     <div>
-                        <asp:Button ID="volCatSubmit" runat="server" Text="Submit" OnClick="volCatSubmit_Click" CssClass="auto-style1" />
+                        <asp:Button ID="volCatSubmit" runat="server" Text="Submit" OnClick="volCatSubmit_Click" CssClass="buttonPosition" />
                     </div>
                 </div>
             </asp:View>

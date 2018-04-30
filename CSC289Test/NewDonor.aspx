@@ -4,31 +4,11 @@
     <style type="text/css">
         #bodyContainer{
             height: 850px !important;
-        }
-        .btnMargin {
-            margin-left: 325px;
-        }
-        .printImage {
-            vertical-align: middle;
-        }
-        .printText {
-            font-size: medium;
-            letter-spacing: .2em;
-            font-weight: bold;
-            font-family: Arial, Helvetica, sans-serif;
-            font-variant: small-caps;
-        }
-        .printDIV {
-            margin-bottom: 35px;
-            text-align: right;
-            padding-right: 40px;
-        }
+        }        
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
     <asp:SqlDataSource ID="ItemCategoryDs" runat="server" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT [Item_Category_ID], [Description] FROM [Item_Category] ORDER BY [Description]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="ItemCategoryDs2" runat="server" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT * FROM [Item_Category] ORDER BY [Description]"></asp:SqlDataSource>
     <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="ViewDonorInfo" runat="server">
             <div id="donorContent">
@@ -150,15 +130,14 @@
                         </td>
                     </tr>
                 </table>
-                <div>
-                    <asp:Button ID="btnSubmitDonor" runat="server" Text="Next" CssClass="btnMargin" ValidationGroup="Donors" OnClick="btnSubmitDonor_Click" />
+                <div style="text-align: center;">
+                    <asp:Button ID="btnSubmitDonor" runat="server" Text="Next" ValidationGroup="Donors" OnClick="btnSubmitDonor_Click" Font-Size="Medium" />
                 </div>
                 <div style="height: 50px;"></div>
             </div>
         </asp:View>
         <asp:View ID="ViewDonationInfo" runat="server">
             <div id="donationContent">
-                <asp:Label ID="lblDonorID" runat="server" Text=""></asp:Label>
                 <h2 style="padding: 35px 0;">Donation Information</h2>
                 <div>
                     <asp:CheckBox ID="cbDiffAddr" runat="server" Text="Pick-up address is different from Donor's address" AutoPostBack="True" CssClass="altAddressCheckbox" OnCheckedChanged="dbDiffAddr_CheckedChanged" Height="30px" />
@@ -215,7 +194,7 @@
                     <h3>Choose a donation category</h3>                    
                 </div>
                 <div class="categoryDIV">
-                    <asp:DropDownList ID="ddlItemCategory" runat="server" DataSourceID="ItemCategoryDs2" DataTextField="Description" DataValueField="Item_Category_ID" Font-Size="Medium" Height="25px" Width="200px">
+                    <asp:DropDownList ID="ddlItemCategory" runat="server" DataSourceID="ItemCategoryDs" DataTextField="Description" DataValueField="Item_Category_ID" Font-Size="Medium" Height="25px" Width="200px">
                     </asp:DropDownList>
                 </div>
                 <table class="donorTable">                        
@@ -239,12 +218,9 @@
                         <td class="dnCol4"></td>
                     </tr>                        
                 </table>
-                <div>
-                    <asp:Label ID="lblCategoryVal" runat="server" Text=""></asp:Label>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="rbCategoryList" ErrorMessage="You Must Choose a Donation Category" ForeColor="Red">*</asp:RequiredFieldValidator>
-                </div>
-                <div>
-                    <asp:Button ID="btnSubmitDonation" runat="server" Text="Submit" ValidationGroup="Donations" CssClass="btnMargin" OnClick="btnSubmitDonation_Click" />
+                
+                <div style="text-align: center; padding-top: 20px;">
+                    <asp:Button ID="btnSubmitDonation" runat="server" Text="Submit" ValidationGroup="Donations" OnClick="btnSubmitDonation_Click" />
                 </div>
                 <div style="height: 50px;"></div>
             </div>
@@ -286,7 +262,7 @@
             <div style="text-align: center; margin-bottom:20px;">
                 <p>The best time for pickup would be between 
                     <span style="padding:0 5px;">
-                        <asp:DropDownList ID="ddlStartWindow" runat="server" Width="100px" AutoPostBack="True" OnSelectedIndexChanged="ddlStartWindow_SelectedIndexChanged">
+                        <asp:DropDownList ID="ddlStartWindow" runat="server" Width="100px" AutoPostBack="True">
                             
                             <asp:ListItem Value="9:00">9:00 AM</asp:ListItem>
                             <asp:ListItem Value="9:30">9:30 AM</asp:ListItem>
@@ -307,7 +283,7 @@
                     </span>
                     and
                     <span style="padding: 0 5px;">
-                        <asp:DropDownList ID="ddlEndWindow" runat="server" Width="100px" AutoPostBack="True" OnSelectedIndexChanged="ddlEndWindow_SelectedIndexChanged">
+                        <asp:DropDownList ID="ddlEndWindow" runat="server" Width="100px" AutoPostBack="True">
                             
                             <asp:ListItem Value="10:00">10:00 AM</asp:ListItem>
                             <asp:ListItem Value="10:30">10:30 AM</asp:ListItem>
@@ -336,9 +312,7 @@
                 </p>
             </div>
             <div style="text-align: center; margin-bottom:20px;">
-
                 <asp:Button ID="SubmitRequest" runat="server" Text="Submit Schedule Request" OnClick="SubmitRequest_Click" />
-
             </div>
         </asp:View>
         <asp:View ID="ViewDonationComplete" runat="server">
@@ -348,13 +322,13 @@
                 </div>
                 <h2>Thank you for your donation.</h2>
                 <p style="margin-top:25px;">Your donation reference number is: <asp:Label runat="server" ID="lblDonationRef"></asp:Label></p>
-                <asp:SqlDataSource ID="SqlDataSourceSummary" runat="server" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="SELECT Donation.Donation_ID, Donation.Donor_ID, Donor.First_Name, Donor.Last_Name, Donation.Address, Donation.Address2, Donation.City, Item_Category.Description, Item.Description AS Expr1, Donation_PickUp_Schedule.PickUp_Window_Start, Donation_PickUp_Schedule.PickUp_Window_End, Donation_PickUp_Schedule.Special_Instructions, Donation.Store_ID, Store.Name, Store.Phone FROM Donation INNER JOIN Donor ON Donation.Donor_ID = Donor.Donor_ID INNER JOIN Item ON Donation.Donation_ID = Item.Donation_ID INNER JOIN Item_Category ON Item.Item_Category_ID = Item_Category.Item_Category_ID INNER JOIN Donation_PickUp_Schedule ON Donation.Donation_ID = Donation_PickUp_Schedule.Donation_ID INNER JOIN Store ON Donation.Store_ID = Store.Store_ID WHERE (Donation.Donation_ID = @donationID)">
+                <asp:SqlDataSource ID="dsSummarySp" runat="server" ConnectionString="<%$ ConnectionStrings:Habitat_RestoreCS %>" SelectCommand="usp_ReportDonorDonationSummary" SelectCommandType="StoredProcedure">
                     <SelectParameters>
-                        <asp:ControlParameter ControlID="lblDonationRef" Name="donationID" PropertyName="Text" />
+                        <asp:ControlParameter ControlID="lblDonationRef" Name="donationID" PropertyName="Text" Type="Int32" />
                     </SelectParameters>
                 </asp:SqlDataSource>
                 <p style="margin-top:25px;">
-                    <asp:DetailsView ID="dvDonorInfo" runat="server" AutoGenerateRows="False" DataKeyNames="Donation_ID" DataSourceID="SqlDataSourceSummary" Width="450px" Gridlines="None">
+                    <asp:DetailsView ID="dvDonorInfo" runat="server" AutoGenerateRows="False" DataKeyNames="Donation_ID" DataSourceID="dsSummarySp" Width="450px" Gridlines="None">
                         <FieldHeaderStyle CssClass="alignRight" Font-Bold="True" />
                         <Fields>
                             <asp:BoundField DataField="Donation_ID" HeaderText="Donation_ID" InsertVisible="False" ReadOnly="True" SortExpression="Donation_ID" Visible="False" />
@@ -366,19 +340,23 @@
                             <asp:BoundField DataField="City" HeaderText="City : " SortExpression="City" />
                             <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" Visible="False" />
                             <asp:BoundField DataField="Expr1" HeaderText="Expr1" SortExpression="Expr1" Visible="False" />
-                            <asp:BoundField DataField="PickUp_Window_Start" HeaderText="PickUp Start Time : " SortExpression="PickUp_Window_Start" />
-                            <asp:BoundField DataField="PickUp_Window_End" HeaderText="PickUp End Time : " SortExpression="PickUp_Window_End" />
+                            <asp:BoundField DataField="PickUp_Window_Start" HeaderText="Pickup Start Time : " SortExpression="PickUp_Window_Start" />
+                            <asp:BoundField DataField="PickUp_Window_End" HeaderText="Pickup End Time : " SortExpression="PickUp_Window_End" />
                             <asp:BoundField DataField="Special_Instructions" HeaderText="Special Instructions :" SortExpression="Special_Instructions" />
                             <asp:BoundField DataField="Store_ID" HeaderText="Store_ID" SortExpression="Store_ID" Visible="False" />
                             <asp:BoundField DataField="Name" HeaderText="Store Name : " SortExpression="Name" />
-                            <asp:BoundField DataField="Phone" HeaderText="Store Phone Number : " SortExpression="Phone" />
+                            <asp:TemplateField HeaderText="Store Phone Number : " SortExpression="Phone">                                
+                                <ItemTemplate>
+                                    <asp:Label ID="Label1" runat="server" Text='<%# string.Format("{0: (###) ###-####}", Int64.Parse(Eval("Phone").ToString())) %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Fields>
                         <HeaderStyle Font-Bold="False" />
                         <RowStyle CssClass="alignLeft" />
                     </asp:DetailsView>
                 </p>
                 <p style="margin-top:25px;">
-                    <asp:GridView ID="gvDonationSummary" runat="server" AutoGenerateColumns="False" DataKeyNames="Donation_ID" DataSourceID="SqlDataSourceSummary" Width="386px" Gridlines="None">
+                    <asp:GridView ID="gvDonationSummary" runat="server" AutoGenerateColumns="False" DataKeyNames="Donation_ID" DataSourceID="dsSummarySp" Width="386px" Gridlines="None">
                         <Columns>
                             <asp:BoundField DataField="Donation_ID" HeaderText="Donation_ID" InsertVisible="False" ReadOnly="True" SortExpression="Donation_ID" Visible="False" />
                             <asp:BoundField DataField="Donor_ID" HeaderText="Donor_ID" SortExpression="Donor_ID" Visible="False" />
