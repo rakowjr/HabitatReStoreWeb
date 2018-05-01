@@ -14,7 +14,7 @@ public partial class ReturningDonor : System.Web.UI.Page
 {
     private int donorID;
     private int donationID;
-    private int donationStatusID = 3; //donation/submitted
+    private int donationStatusID = 3;
     private int storeID;
     private bool bypassFlag = false;
     private string address;
@@ -27,8 +27,7 @@ public partial class ReturningDonor : System.Web.UI.Page
     private int completed = 0;
         
     protected void Page_Load(object sender, EventArgs e)
-    {
-        
+    {        
         if (!IsPostBack)
         {
             MultiView1.ActiveViewIndex = 0;
@@ -48,7 +47,6 @@ public partial class ReturningDonor : System.Web.UI.Page
             if (HttpContext.Current.Session["donationID"] != null)
                 donationID = (int)HttpContext.Current.Session["donationID"];
         }
-
     }
 
     //Get DonorID
@@ -77,15 +75,10 @@ public partial class ReturningDonor : System.Web.UI.Page
                     while(reader.Read())
                     {
                         donorID = reader.GetInt32(0);
-                        lblDonorID.Text = Convert.ToString(donorID);
                         address = reader.GetString(1);
-                        //lblDonAddr.Text = Convert.ToString(address);
                         address2 = reader.GetString(2);
-                        //lblDonAddr2.Text = Convert.ToString(address2);
                         city = reader.GetString(3);
-                        //lblDonCity.Text = Convert.ToString(city);
                         zipcode = reader.GetString(4);
-                        //lblDonZip.Text = Convert.ToString(zipcode);
                     }
                     HttpContext.Current.Session["donorID"] = donorID;
                     HttpContext.Current.Session["address"] = address;
@@ -104,9 +97,6 @@ public partial class ReturningDonor : System.Web.UI.Page
                 mConn.Close();
                 cmd.Dispose();
             }
-            
-            
-            //lblDonorID.Text = donorID.ToString();
         }
         catch (Exception ex)
         {
@@ -318,7 +308,7 @@ public partial class ReturningDonor : System.Web.UI.Page
             } //user has not chosen an image            
         } //No donation has yet been made
 
-        rbCategoryList.ClearSelection();
+        
         tbDnDesc.Text = "";
         MultiView1.ActiveViewIndex = 2;        
     }
@@ -332,7 +322,6 @@ public partial class ReturningDonor : System.Web.UI.Page
     {
         MultiView1.ActiveViewIndex = 3;
         lblDonationRef.Text = Convert.ToString(donationID);
-        //Response.Redirect("Default.aspx");
         
     }
 
@@ -388,7 +377,7 @@ public partial class ReturningDonor : System.Web.UI.Page
             lblSchedDbError.Text = "A Schedule database error has occurred.< br /> " + "Message: " + ex.Message;
         }
         MultiView1.ActiveViewIndex = 4;
-        lblDonationRef.Text = Convert.ToString(donationID);
+        lblDonationRef.Text = Convert.ToString(donationID);        
         Session["donorID"] = null;
         Session["donationID"] = null;
     }

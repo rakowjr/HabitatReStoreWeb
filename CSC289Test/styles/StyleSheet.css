@@ -2,14 +2,10 @@
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
 	display: block;
 }
-
 * {
     margin: 0 auto;
     font-family: Arial;
 }
-
-
-
 html {
 	font-size: 0.875em;
 	-webkit-text-size-adjust: 100%;
@@ -19,14 +15,10 @@ html, button, input, select, textarea {
     font-family: Arial,Helvetica,sans-serif;
     color: black;
 }
-
-
-
 body {
     border-top: solid 6px #e3e2df;
     background: url(/images/bgShort.png) repeat-x top #fff;
 }
-
 header{
     background: #fff;
     height: 126px; /*126*/
@@ -35,7 +27,6 @@ header{
         position: relative;
         height: 57px; /*57*/
     }
-
     header nav {
         background: url(/images/nav.png) repeat-x;
         height: 69px;
@@ -48,7 +39,6 @@ header{
     header nav ul{
         margin-left: 320px; /*320*/
     }
-
         header nav ul li {
             background: url(/images/nav-s.gif) no-repeat left center;            
             display: block;
@@ -59,7 +49,6 @@ header{
             header nav ul li.first {
                 background: none;
             }
-
             header nav ul li a {
                 display: block;
                 float: left;
@@ -71,7 +60,6 @@ header{
                 text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.33);
                 font-weight: 800;
             }
-
                 header nav ul li a:hover,
                 header nav ul li a.active,
                 header nav ul li a.hover {
@@ -81,15 +69,12 @@ header{
     content: "";
     display: table;
 }
-
 .clearfix:after {
     clear: both;
 }
-
 .clearfix {
     *zoom: 1;
 }
-
 /* Improve readability when focused and hovered in all browsers: h5bp.com/h */
 a:hover, a:active {
 	outline: 0;
@@ -111,7 +96,6 @@ nav ul, nav ol {
 	margin: 0;
 	padding: 0;
 }
-
 #container {
     width: 1050px;
     /*height: 1000px;*/
@@ -141,7 +125,6 @@ nav ul, nav ol {
     width: 270px;
     padding-top: 40px;
 }
-
 #page {
     float: right;
     width: 700px;
@@ -155,7 +138,7 @@ nav ul, nav ol {
 .breadCrumb {
     /*margin-bottom: -55px;*/
 }
- #banner{
+#banner{
     border: solid 4px #fff;
     webkit box shadow: 0 2px 8px rgba(0,0,0,5);
     box-shadow: 0 2px 8px rgba(0,0,0,5);
@@ -163,7 +146,7 @@ nav ul, nav ol {
     margin: 0 10px 20px auto;
     padding-left: 10px;
 }
- .sideBarImage{
+.sideBarImage{
     margin: 45px auto;
 }
 .itemImage{
@@ -192,7 +175,6 @@ nav ul, nav ol {
     padding-bottom: 18px;
     text-transform: uppercase;
 }
-
 .donateImg{
     display: inline;
     float: left;
@@ -223,6 +205,14 @@ nav ul, nav ol {
     padding-top: 25px;
     margin: 0 auto;
 }
+.altAddressTable {
+    width: 460px;
+    padding-top: 25px;
+    margin: 0px auto 25px;
+}
+.altAddressCheckbox {
+    margin-left: 200px;
+}
 .volunteerTable tr, .donorTable tr{
     height: 45px;
 }
@@ -235,12 +225,10 @@ nav ul, nav ol {
     font-size: small;
     text-align: right;
     padding-right: 15px;
-}
- 
+} 
 .vtCol3, .dnCol3 {
     width: 260px;
 }
-
 .volTB, .dnTB {
     width: 230px;
     height: 24px;
@@ -281,6 +269,52 @@ nav ul, nav ol {
 }
 .volunteerCategoryCB td label{
     padding-left: 10px;
+}
+.printImage {
+    vertical-align: middle;
+}
+.printText {
+    font-size: medium;
+    letter-spacing: .2em;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: small-caps;
+}
+.printDIV {
+    margin-bottom: 35px;
+    text-align: right;
+    padding-right: 40px;
+}
+.alignRight {
+    text-align: right;
+    padding-right: 15px;
+}
+.alignLeft {
+    text-align: left;
+    padding-left: 15px;
+}
+.summaryContainer {
+    text-align: center;
+    padding-top: 40px;
+}
+.categoryDIV {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.printImage {
+    vertical-align: middle;
+}
+.printText {
+    font-size: medium;
+    letter-spacing: .2em;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: small-caps;
+}
+.printDIV {
+    margin-bottom: 35px;
+    text-align: right;
+    padding-right: 40px;
 }
 
  

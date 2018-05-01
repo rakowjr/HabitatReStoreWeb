@@ -13,10 +13,10 @@ using System.IO;
 
 public partial class Donations : System.Web.UI.Page
 {
-    private int donorID; //variable to store Donor_ID output
-    private int donorStatusID = 2; //Status Map ID = donor/submitted
-    private int donationStatusID = 3; //Status Map ID = donation/submitted
-    private int donationID; //variable to store Donation_ID output
+    private int donorID;
+    private int donorStatusID = 2;
+    private int donationStatusID = 3;
+    private int donationID;
     private int storeID;
     private bool bypassFlag = false;
     private string pickupDate;
@@ -77,18 +77,16 @@ public partial class Donations : System.Web.UI.Page
                 {
                     donorID = Convert.ToInt32(reader[0]);
                 }
-                lblDonorID.Text = Convert.ToString(donorID); //verify donorID retreival
+                
                 mConn.Close();
                 cmd.Dispose();
             }
-
         }
         catch (Exception ex)
         {
             lblDonorDbError.Text = "A Donor database error has occured.<br />" + "Message: " + ex.Message;
         }
-
-        //Switch to Donation Information view
+        
         HttpContext.Current.Session["donorID"] = donorID;
         MultiView1.ActiveViewIndex = 1;
     }
@@ -223,7 +221,6 @@ public partial class Donations : System.Web.UI.Page
                     mConn.Close();
                     cmd.Dispose();
                 }
-
             }
             catch (Exception ex)
             {
@@ -308,7 +305,7 @@ public partial class Donations : System.Web.UI.Page
             } //user has not chosen an image
         } //no donation made yet  
 
-        rbCategoryList.ClearSelection();
+        
         tbDnDesc.Text = "";
         MultiView1.ActiveViewIndex = 2;
     }
@@ -329,6 +326,7 @@ public partial class Donations : System.Web.UI.Page
         if (cbDiffAddr.Checked == true)
         {
             PanelAltAddr.Visible = true;
+            cbDiffAddr.Enabled = false;
         }
         else
         {
@@ -339,17 +337,7 @@ public partial class Donations : System.Web.UI.Page
     protected void CalendarPickup_SelectionChanged(object sender, EventArgs e)
     {
         pickupDate = CalendarPickup.SelectedDate.ToString("yyyy-MM-dd");
-    }
-
-    protected void ddlStartWindow_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        //startTime = ddlStartWindow.SelectedValue.ToString();
-    }
-
-    protected void ddlEndWindow_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        //endPickup = endPickup += " " + ddlEndWindow.SelectedValue.ToString();
-    }
+    }    
 
     protected void SubmitRequest_Click(object sender, EventArgs e)
     {

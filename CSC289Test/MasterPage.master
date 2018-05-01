@@ -28,22 +28,14 @@
                     <li>
                         <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Volunteers.aspx">Volunteer</asp:HyperLink></li>
                     <li>
-                        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/NewDonor.aspx">Donate</asp:HyperLink></li>
-                    <!--<li>
-                        <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="#">ReStores</asp:HyperLink>
-                    </li>
-                    <li>
-                        <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="#">Donate</asp:HyperLink>
-                    </li>-->
-                </ul>
-                
+                        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Default.aspx#dlink">Donate</asp:HyperLink></li>
+                </ul>                
             </nav>
         </header> 
         <div id="bodyContainer">
             <div id="breadCrumbContainer">
                 <asp:SiteMapPath ID="SiteMapPath1" runat="server" CssClass="breadCrumb"></asp:SiteMapPath>
-            </div>
-        
+            </div>        
             <section id="page" class="clearfix">
                 <div>
                     <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
@@ -66,7 +58,6 @@
             </aside>
             <footer>
                 <div>
-
                 </div>
             </footer>
        </div>

@@ -25,6 +25,7 @@ public partial class Volunteers : System.Web.UI.Page
                 volunteerID = (int)HttpContext.Current.Session["volunteerID"];
         }
 
+        //populate Month, Day, Year drop down lists
         for (int i = 1; i <= 12; i++)
         {
             ListItem ltItem = new ListItem();
@@ -52,9 +53,7 @@ public partial class Volunteers : System.Web.UI.Page
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
-    {       
-
-        int volunteerStatusID = 1; //Status Map ID variable hard coded
+    {
 
         String date = ddlYear.SelectedValue + "-" + ddlMonth.SelectedValue + "-" + ddlDay.SelectedValue;
         DateTime dt = DateTime.Parse(date);
@@ -63,13 +62,12 @@ public partial class Volunteers : System.Web.UI.Page
         SqlConnection mConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
         //Create new Sql Statement to insert data into the Volunteer table
-        //SqlCommand cmd = new SqlCommand("Insert INTO Volunteer (Status_Map_ID,Last_Name, First_Name, Middle_Name, Gender, DOB, SSN, Address, Address2, City, State, Zip_Code, Phone, Email) OUTPUT INSERTED.Volunteer_ID VALUES (@Status_Map_ID, @Last_Name, @First_Name, @Middle_Name, @Gender, @DOB, @SSN, @Address, @Address2, @City, @State, @Zip_Code, @Phone, @Email)", mConn);
         SqlCommand cmd = new SqlCommand("usp_AddVolunteer", mConn);
+
         //Define command type
         cmd.CommandType = CommandType.StoredProcedure;
 
         //provide values from page
-        cmd.Parameters.AddWithValue("@Status_Map_ID", volunteerStatusID);
         cmd.Parameters.AddWithValue("@Last_Name",tbLName.Text);
         cmd.Parameters.AddWithValue("@First_Name", tbFName.Text);
         cmd.Parameters.AddWithValue("@Middle_Name", tbMName.Text);
@@ -79,8 +77,7 @@ public partial class Volunteers : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Address", tbAddress.Text);
         cmd.Parameters.AddWithValue("@Address2", tbAddress2.Text);
         cmd.Parameters.AddWithValue("@City", tbCity.Text);
-        cmd.Parameters.AddWithValue("@State", "NC");
-        cmd.Parameters.AddWithValue("@Zip_Code", tbZip.Text);
+        cmd.Parameters.AddWithValue("@ZipCode", tbZip.Text);
         cmd.Parameters.AddWithValue("@Phone", tbPhone.Text);
         cmd.Parameters.AddWithValue("@Email", tbEmail.Text);
 
@@ -94,25 +91,19 @@ public partial class Volunteers : System.Web.UI.Page
                 {
                     volunteerID = Convert.ToInt32(reader[0]);
                 }
-                //volunteerID = (int)cmd.ExecuteScalar();
                 mConn.Close();
                 cmd.Dispose();
             }
+
+            HttpContext.Current.Session["volunteerID"] = volunteerID; //set session variable
+            MultiView1.ActiveViewIndex = 1;
 
         }
         catch (Exception ex)
         {
             lblDbError.Text = "A database error has occured.<br />" + "Message: " + ex.Message;
         }
-
-        HttpContext.Current.Session["volunteerID"] = volunteerID; //set session variable
-        MultiView1.ActiveViewIndex = 1;
-    }
-
-
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        //does nothing but check validation
+        
     }
 
     protected void volCatSubmit_Click(object sender, EventArgs e)
@@ -129,10 +120,10 @@ public partial class Volunteers : System.Web.UI.Page
                     SqlConnection mConn1 = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
                     //Create new Sql Statement to insert data into the Volunteer table
-                    SqlCommand cmd1 = new SqlCommand("Insert INTO Volunteer_Category (Volunteer_ID, Category_Type_ID) VALUES (@Volunteer_ID, @Category_Type_ID)", mConn1);
+                    SqlCommand cmd1 = new SqlCommand("usp_AddVolunteer_Category", mConn1);
 
                     //Define command type
-                    cmd1.CommandType = CommandType.Text;
+                    cmd1.CommandType = CommandType.StoredProcedure;
 
                     cmd1.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
                     cmd1.Parameters.AddWithValue("@Category_Type_ID", 1);
@@ -156,10 +147,10 @@ public partial class Volunteers : System.Web.UI.Page
                     SqlConnection mConn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
                     //Create new Sql Statement to insert data into the Volunteer table
-                    SqlCommand cmd2 = new SqlCommand("Insert INTO Volunteer_Category (Volunteer_ID, Category_Type_ID) VALUES (@Volunteer_ID, @Category_Type_ID)", mConn2);
+                    SqlCommand cmd2 = new SqlCommand("usp_AddVolunteer_Category", mConn2);
 
                     //Define command type
-                    cmd2.CommandType = CommandType.Text;
+                    cmd2.CommandType = CommandType.StoredProcedure;
 
                     cmd2.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
                     cmd2.Parameters.AddWithValue("@Category_Type_ID", 2);
@@ -183,10 +174,10 @@ public partial class Volunteers : System.Web.UI.Page
                     SqlConnection mConn3 = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
                     //Create new Sql Statement to insert data into the Volunteer table
-                    SqlCommand cmd3 = new SqlCommand("Insert INTO Volunteer_Category (Volunteer_ID, Category_Type_ID) VALUES (@Volunteer_ID, @Category_Type_ID)", mConn3);
+                    SqlCommand cmd3 = new SqlCommand("usp_AddVolunteer_Category", mConn3);
 
                     //Define command type
-                    cmd3.CommandType = CommandType.Text;
+                    cmd3.CommandType = CommandType.StoredProcedure;
 
                     cmd3.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
                     cmd3.Parameters.AddWithValue("@Category_Type_ID", 3);
@@ -210,10 +201,10 @@ public partial class Volunteers : System.Web.UI.Page
                     SqlConnection mConn4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
                     //Create new Sql Statement to insert data into the Volunteer table
-                    SqlCommand cmd4 = new SqlCommand("Insert INTO Volunteer_Category (Volunteer_ID, Category_Type_ID) VALUES (@Volunteer_ID, @Category_Type_ID)", mConn4);
+                    SqlCommand cmd4 = new SqlCommand("usp_AddVolunteer_Category", mConn4);
 
                     //Define command type
-                    cmd4.CommandType = CommandType.Text;
+                    cmd4.CommandType = CommandType.StoredProcedure;
 
                     cmd4.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
                     cmd4.Parameters.AddWithValue("@Category_Type_ID", 4);
@@ -237,10 +228,10 @@ public partial class Volunteers : System.Web.UI.Page
                     SqlConnection mConn5 = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
                     //Create new Sql Statement to insert data into the Volunteer table
-                    SqlCommand cmd5 = new SqlCommand("Insert INTO Volunteer_Category (Volunteer_ID, Category_Type_ID) VALUES (@Volunteer_ID, @Category_Type_ID)", mConn5);
+                    SqlCommand cmd5 = new SqlCommand("usp_AddVolunteer_Category", mConn5);
 
                     //Define command type
-                    cmd5.CommandType = CommandType.Text;
+                    cmd5.CommandType = CommandType.StoredProcedure;
 
                     cmd5.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
                     cmd5.Parameters.AddWithValue("@Category_Type_ID", 5);
@@ -264,10 +255,10 @@ public partial class Volunteers : System.Web.UI.Page
                     SqlConnection mConn6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
                     //Create new Sql Statement to insert data into the Volunteer table
-                    SqlCommand cmd6 = new SqlCommand("Insert INTO Volunteer_Category (Volunteer_ID, Category_Type_ID) VALUES (@Volunteer_ID, @Category_Type_ID)", mConn6);
+                    SqlCommand cmd6 = new SqlCommand("usp_AddVolunteer_Category", mConn6);
 
                     //Define command type
-                    cmd6.CommandType = CommandType.Text;
+                    cmd6.CommandType = CommandType.StoredProcedure;
 
                     cmd6.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
                     cmd6.Parameters.AddWithValue("@Category_Type_ID", 6);
@@ -291,10 +282,10 @@ public partial class Volunteers : System.Web.UI.Page
                     SqlConnection mConn7 = new SqlConnection(WebConfigurationManager.ConnectionStrings["Habitat_RestoreCS"].ConnectionString);
 
                     //Create new Sql Statement to insert data into the Volunteer table
-                    SqlCommand cmd7 = new SqlCommand("Insert INTO Volunteer_Category (Volunteer_ID, Category_Type_ID) VALUES (@Volunteer_ID, @Category_Type_ID)", mConn7);
+                    SqlCommand cmd7 = new SqlCommand("usp_AddVolunteer_Category", mConn7);
 
                     //Define command type
-                    cmd7.CommandType = CommandType.Text;
+                    cmd7.CommandType = CommandType.StoredProcedure;
 
                     cmd7.Parameters.AddWithValue("@Volunteer_ID", volunteerID);
                     cmd7.Parameters.AddWithValue("@Category_Type_ID", 7);
@@ -317,5 +308,6 @@ public partial class Volunteers : System.Web.UI.Page
         }
        
         MultiView1.ActiveViewIndex = 2;
+        Session["volunteerID"] = null;
     }
 }
