@@ -58,8 +58,7 @@
                                 <asp:ListItem Value="F">Female</asp:ListItem>
                             </asp:radiobuttonlist>
                         </td>
-                        <td class="dnCol4">
-                            <asp:requiredfieldvalidator id="valGender" runat="server" errormessage="Gender missing" validationgroup="Donors" controltovalidate="rBtnGender" text="*" forecolor="Red" cssclass="dnValidate" height="12px"></asp:requiredfieldvalidator>
+                        <td class="dnCol4">                     
 
                         </td>
                     </tr>
@@ -109,8 +108,7 @@
                         <td class="dnCol3">
                             <asp:textbox id="tbPhone" runat="server" cssclass="dnTB"></asp:textbox>
                         </td>
-                        <td class="dnCol4">
-                            <asp:requiredfieldvalidator id="valPhone" runat="server" errormessage="Phone Number missing" validationgroup="Donors" controltovalidate="tbPhone" text="*" forecolor="Red" cssclass="dnValidate"></asp:requiredfieldvalidator>
+                        <td class="dnCol4">                            
                             <asp:RegularExpressionValidator ID="valPhoneLength" runat="server" ErrorMessage=" Incorrect phone number format" Text="*" ValidationGroup="Donors" ValidationExpression="\d{10}" ControlToValidate="tbPhone" CssClass="dnValidate" ForeColor="Red"></asp:RegularExpressionValidator>
                         </td>
                     </tr>
