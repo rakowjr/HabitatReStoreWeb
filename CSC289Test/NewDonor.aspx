@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
         #bodyContainer{
-            height: 850px !important;
+            height: 1050px !important;
         }        
     </style>
 </asp:Content>

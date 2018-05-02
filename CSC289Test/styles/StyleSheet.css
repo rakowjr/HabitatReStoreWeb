@@ -111,7 +111,7 @@ nav ul, nav ol {
 }
 #bodyContainer {
     width: 1045px;
-    height: 1325px;
+    height: 1310px;
     margin-top: -10px;
     margin-bottom: 25px;
     padding-top: 10px;
@@ -316,5 +316,18 @@ nav ul, nav ol {
     text-align: right;
     padding-right: 40px;
 }
+#botSect {
+    width: 1064px;
+    height: 100px;
+    
+    margin-bottom: 50px;
+    clear: both;
+}
+    #botSect p {
+        margin-top: 12px;
+        margin-right: 40px;
+        text-align: right;
+        /*float: right;*/
+    }
 
  

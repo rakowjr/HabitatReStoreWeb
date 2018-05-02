@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
         #bodyContainer{
-            height: 910px !important;
+            height: 1050px !important;
         }
         .buttonPosition {
             margin-left: 325px;
